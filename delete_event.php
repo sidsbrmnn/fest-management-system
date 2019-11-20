@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: events.php');
+    header('Location: login.php?back=delete_event.php');
 }
 
 if (isset($_GET['id'])) {
