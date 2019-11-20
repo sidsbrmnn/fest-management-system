@@ -8,8 +8,8 @@ if (isset($_SESSION['user_id'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include 'includes/db_connect.php';
 
-    $email = mysqli_real_escape_string($_POST['email']);
-    $password = mysqli_real_escape_string($_POST['password']);
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
     $query = "SELECT * FROM users WHERE email = '" . $email . "' AND password = '". md5($password) . "'";
     $result = mysqli_query($con, $query);

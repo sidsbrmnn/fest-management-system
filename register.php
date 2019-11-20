@@ -8,10 +8,10 @@ if (isset($_SESSION['user_id'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include 'includes/db_connect.php';
 
-    $full_name = mysqli_real_escape_string($_POST['full_name']);
-    $email = mysqli_real_escape_string($_POST['email']);
-    $password = mysqli_real_escape_string($_POST['password']);
-    $phone_no = mysqli_real_escape_string($_POST['phone_no']);
+    $full_name = $_POST['full_name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $phone_no = $_POST['phone_no'];
 
     $query = "SELECT * FROM users WHERE email = '$email'";
     $result = mysqli_query($con, $query);

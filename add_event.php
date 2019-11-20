@@ -8,10 +8,10 @@ if (!isset($_SESSION['user_id'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include 'includes/db_connect.php';
 
-    $event_name = mysqli_real_escape_string($_POST['event_name']);
-    $event_type = mysqli_real_escape_string($_POST['event_type']);
-    $event_fee = mysqli_real_escape_string($_POST['event_fee']);
-    $category_id = mysqli_real_escape_string($_POST['category_id']);
+    $event_name = $_POST['event_name'];
+    $event_type = $_POST['event_type'];
+    $event_fee = $_POST['event_fee'];
+    $category_id = $_POST['category_id'];
 
     $query = "INSERT INTO events (event_name, event_type, event_fee, category_id) VALUES ('$event_name', '$event_type', '$event_fee', '$category_id')";
     $result = mysqli_query($con, $query);
