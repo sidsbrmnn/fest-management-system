@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $query = "SELECT * FROM users WHERE email = '" . $email . "' AND password = '". md5($password) . "'";
+    $query = "SELECT * FROM users WHERE email = '" . $email . "' AND password = '" . md5($password) . "'";
     $result = mysqli_query($con, $query);
 
     if ($result) {
@@ -19,7 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['user_id'] = $row['email'];
             $_SESSION['user_name'] = $row['full_name'];
 
-            header('Location: index.php');
+            if (isset($_GET['back'])) {
+                header('Location: ' . $_GET['back']);
+            } else {
+                header('Location: index.php');
+            }
         } else {
             $error_message = 'Invalid email/password';
         }
@@ -37,32 +41,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login - Fest Management</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <?php include 'includes/_links.php'; ?>
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
-        <div class="container">
-            <a href="index.php" class="navbar-brand">Fest Management</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a href="index.php" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="events.php" class="nav-link">Events</a></li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a href="login.php" class="nav-link">Login</a></li>
-                    <li class="nav-item"><a href="register.php" class="nav-link">Register</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php include 'includes/_navbar.php'; ?>
 
-    <div class="container py-5">
+    <div class="container py-5" style="position: relative;">
         <h3>Login</h3>
         <div class="row mt-4">
             <div class="col-md-6 col-12">
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <form
+                    action="<?php echo $_SERVER['PHP_SELF'] . isset($_GET['back']) ? '?back=' . $_GET['back'] : ''; ?>"
+                    method="post">
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" name="email" id="email" class="form-control" required>
@@ -73,24 +64,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>
-                <?php if (isset($error_message)) { ?>
-                <small class="d-block text-danger mt-2">
-                    <?php echo $error_message; ?>
-                </small>
-                <?php } ?>
             </div>
         </div>
+
+        <?php include 'includes/_error_toast.php'; ?>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
+    <?php include 'includes/_scripts.php'; ?>
 </body>
 
 </html>
