@@ -12,7 +12,7 @@ if (isset($_POST['type']) && $_POST['type'] == 'add' && isset($_POST['event_id']
         if ($row = mysqli_fetch_array($result)) {
             $_SESSION['cart'][$event_id] = $row;
 
-            header('Location: new_participant.php');
+            header('Location: select_events.php');
         }
     }
 }
@@ -24,6 +24,6 @@ if (isset($_POST['type']) && $_POST['type'] == 'remove' && isset($_POST['event_i
         unset($_SESSION['cart'][$event_id]);
     }
 
-    header('Location: new_participant.php');
+    header('Location: select_events.php');
 }
 ?>

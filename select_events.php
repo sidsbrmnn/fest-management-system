@@ -2,7 +2,11 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php?back=new_participant.php');
+    header('Location: login.php?back=select_events.php');
+}
+
+if (isset($_GET['selected']) && $_GET['selected'] == 'none') {
+    $error_message = 'Select at least one event';
 }
 ?>
 
@@ -42,12 +46,12 @@ if (!isset($_SESSION['user_id'])) {
                             <input type="hidden" name="event_id" value="<?php echo $row['event_id']; ?>">
                             <?php if (isset($_SESSION['cart'][$row['event_id']])) { ?>
                             <input type="hidden" name="type" value="remove">
-                            <button type="submit" class="btn btn-danger btn-sm">
+                            <button type="submit" class="btn btn-danger btn-sm float-right">
                                 <i class="fas fa-times"></i> Remove
                             </button>
                             <?php } else { ?>
                             <input type="hidden" name="type" value="add">
-                            <button type="submit" class="btn btn-primary btn-sm">
+                            <button type="submit" class="btn btn-primary btn-sm float-right">
                                 <i class="fas fa-check"></i> Select
                             </button>
                             <?php } ?>
@@ -60,6 +64,7 @@ if (!isset($_SESSION['user_id'])) {
             }
             ?>
         </div>
+        <a href="add_participant.php" class="btn btn-success float-right">Proceed <i class="fas fa-arrow-right"></i></a>
 
         <?php include 'includes/_error_toast.php'; ?>
     </div>

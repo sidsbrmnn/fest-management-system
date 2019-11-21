@@ -23,7 +23,7 @@ if (!isset($_SESSION['user_id'])) {
     <div class="container py-5" style="position: relative;">
         <h3>
             Participants
-            <a href="new_participant.php" class="btn btn-primary float-right"><i class="fas fa-plus"></i> New</a>
+            <a href="select_events.php" class="btn btn-primary float-right"><i class="fas fa-plus"></i> New</a>
         </h3>
         <table class="table table-hover mt-4">
             <thead>
