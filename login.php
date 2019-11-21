@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="row mt-4">
             <div class="col-md-6 col-12">
                 <form
-                    action="<?php echo $_SERVER['PHP_SELF'] . isset($_GET['back']) ? '?back=' . $_GET['back'] : ''; ?>"
+                    action="<?php echo isset($_GET['back']) ? $_SERVER['PHP_SELF'] . '?back=' . $_GET['back'] : $_SERVER['PHP_SELF'];?><?php echo '' ?>"
                     method="post">
                     <div class="form-group">
                         <label for="email">Email</label>
