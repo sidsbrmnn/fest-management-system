@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION['user_id'])) {
-    header('Location: index.php');
+    header('Location: dashboard.php');
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -20,14 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (mysqli_num_rows($result)) {
             $error_message = 'User already exists with the given email';
         } else {
-            $query = "INSERT INTO users VALUES ('$email', '". md5($password) . "', '$full_name', '$phone_no')";
+            $query = "INSERT INTO users (email, password, full_name, phone_no) VALUES ('$email', '". md5($password) . "', '$full_name', '$phone_no')";
             $result = mysqli_query($con, $query);
 
             if ($result) {
                 $_SESSION['user_id'] = $email;
                 $_SESSION['user_name'] = $full_name;
 
-                header('Location: index.php');
+                header('Location: dashboard.php');
             } else {
                 $error_message = mysqli_error($con);
             }
@@ -49,37 +49,51 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php include 'includes/_links.php'; ?>
 </head>
 
-<body>
+<body class="bg-light">
     <?php include 'includes/_navbar.php'; ?>
 
-    <div class="container py-5" style="position: relative;">
-        <h3>Register</h3>
-        <div class="row mt-4">
-            <div class="col-md-6 col-12">
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                    <div class="form-group">
-                        <label for="full_name">Full name</label>
-                        <input type="text" name="full_name" id="full_name" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" id="password" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone_no">Phone number</label>
-                        <input type="text" name="phone_no" id="phone_no" class="form-control" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Register</button>
-                </form>
+    <main>
+        <div class="container text-center py-5" style="position: relative;">
+            <h1 class="h3 font-weight-normal mb-4">Enter your details to register</h1>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-10 col-12 mx-auto">
+                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                        <div class="form-group">
+                            <label for="full_name" class="sr-only">Full name</label>
+                            <input type="text" name="full_name" id="full_name" class="form-control py-4"
+                                placeholder="Full name" required autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="sr-only">Email address</label>
+                            <input type="email" name="email" id="email" class="form-control py-4"
+                                placeholder="Email address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="sr-only">Password</label>
+                            <input type="password" name="password" id="password" class="form-control py-4"
+                                placeholder="Password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone_no" class="sr-only">Phone number</label>
+                            <input type="text" name="phone_no" id="phone_no" class="form-control py-4"
+                                placeholder="Phone number" required>
+                        </div>
+                        <hr>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="agree-terms" required>
+                            <label class="custom-control-label" for="agree-terms">
+                                <small>I confirm that the information
+                                    given in this form is true, complete and accurate.</small>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block mt-3">Register</button>
+                    </form>
+                </div>
             </div>
-        </div>
 
-        <?php include 'includes/_error_toast.php'; ?>
-    </div>
+            <?php include 'includes/_error_toast.php'; ?>
+        </div>
+    </main>
 
     <?php include 'includes/_scripts.php'; ?>
 </body>

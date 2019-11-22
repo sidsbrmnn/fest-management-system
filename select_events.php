@@ -5,8 +5,8 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php?back=select_events.php');
 }
 
-if (isset($_GET['selected']) && $_GET['selected'] == 'none') {
-    $error_message = 'Select at least one event';
+if (isset($_GET['err'])) {
+    $error_message = $_GET['err'];
 }
 ?>
 
@@ -17,57 +17,68 @@ if (isset($_GET['selected']) && $_GET['selected'] == 'none') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>New Participant - Fest Management</title>
+    <title>Select Events - Fest Management</title>
     <?php include 'includes/_links.php'; ?>
 </head>
 
 <body>
     <?php include 'includes/_navbar.php'; ?>
 
-    <div class="container py-5" style="position: relative;">
-        <h3>New Participant</h3>
-        <h5 class="mt-4">Select Events</h5>
-        <div class="row">
-            <?php
-            include 'includes/db_connect.php';
+    <main>
+        <div class="container py-5" style="position: relative;">
+            <h1 class="h3 d-flex align-items-center justify-content-between font-weight-normal mb-4">
+                <span>Select Events</span>
+                <a href="checkout.php" class="btn btn-success float-right">
+                    Proceed <i class="fas fa-arrow-right"></i>
+                </a>
+            </h1>
+            <div class="row">
+                <?php
+                include 'includes/db_connect.php';
 
-            $query = "SELECT * FROM events";
-            $result = mysqli_query($con, $query);
-            if ($result) {
-                while ($row = mysqli_fetch_array($result)) { ?>
-            <div class="col-lg-4 col-md-6 col-12 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $row['event_name']; ?></h5>
-                        <h6 class="card-subtitle mb-2 text-muted">&#8377; <?php echo $row['event_fee']; ?></h6>
-                        <p class="card-text text-truncate">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos,
-                            veritatis!</p>
-                        <form action="update_cart.php" method="post">
-                            <input type="hidden" name="event_id" value="<?php echo $row['event_id']; ?>">
-                            <?php if (isset($_SESSION['cart'][$row['event_id']])) { ?>
-                            <input type="hidden" name="type" value="remove">
-                            <button type="submit" class="btn btn-danger btn-sm float-right">
-                                <i class="fas fa-times"></i> Remove
-                            </button>
-                            <?php } else { ?>
-                            <input type="hidden" name="type" value="add">
-                            <button type="submit" class="btn btn-primary btn-sm float-right">
-                                <i class="fas fa-check"></i> Select
-                            </button>
-                            <?php } ?>
-                        </form>
+                $query = "SELECT * FROM events";
+                $result = mysqli_query($con, $query);
+                if ($result) {
+                    while ($row = mysqli_fetch_array($result)) { ?>
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="view_event.php?id=<?php echo $row['event_id']; ?>"
+                                    class="text-decoration-none text-dark">
+                                    <?php echo $row['event_name']; ?>
+                                </a>
+                            </h5>
+                            <h6 class="card-subtitle mb-2 text-muted">&#8377; <?php echo $row['event_fee']; ?></h6>
+                            <p class="card-text text-truncate">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Eos,
+                                veritatis!</p>
+                            <form action="update_cart.php" method="post">
+                                <input type="hidden" name="event_id" value="<?php echo $row['event_id']; ?>">
+                                <?php if (isset($_SESSION['cart'][$row['event_id']])) { ?>
+                                <input type="hidden" name="type" value="remove">
+                                <button type="submit" class="btn btn-danger btn-sm float-right">
+                                    <i class="fas fa-times"></i> Remove
+                                </button>
+                                <?php } else { ?>
+                                <input type="hidden" name="type" value="add">
+                                <button type="submit" class="btn btn-primary btn-sm float-right">
+                                    <i class="fas fa-check"></i> Select
+                                </button>
+                                <?php } ?>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <?php
+                <?php
+                    }
                 }
-            }
-            ?>
-        </div>
-        <a href="add_participant.php" class="btn btn-success float-right">Proceed <i class="fas fa-arrow-right"></i></a>
+                ?>
+            </div>
 
-        <?php include 'includes/_error_toast.php'; ?>
-    </div>
+            <?php include 'includes/_error_toast.php'; ?>
+        </div>
+    </main>
 
     <?php include 'includes/_scripts.php'; ?>
 </body>

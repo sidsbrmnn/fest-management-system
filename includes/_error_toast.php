@@ -1,5 +1,5 @@
 <?php if (isset($error_message)) { ?>
-<div class="toast" style="position: absolute; top: 1.5rem; right: 0;" data-delay="2000" data-autohide="false">
+<div class="toast" style="position: absolute; top: 1.5rem; right: 0;" data-delay="2000">
     <div class="toast-header">
         <strong class="mr-auto text-danger">Error</strong>
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">

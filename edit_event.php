@@ -39,70 +39,74 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <?php include 'includes/_navbar.php'; ?>
 
-    <div class="container py-5" style="position: relative;">
-        <?php
-        if (isset($_GET['id'])) {
-            $event_id = $_GET['id'];
+    <main>
+        <div class="container py-5" style="position: relative;">
+            <?php
+            if (isset($_GET['id'])) {
+                $event_id = $_GET['id'];
 
-            $query = "SELECT * FROM events WHERE event_id = '$event_id'";
-            $result = mysqli_query($con, $query);
+                $query = "SELECT * FROM events WHERE event_id = '$event_id'";
+                $result = mysqli_query($con, $query);
 
-            if ($result) {
-                if ($row = mysqli_fetch_array($result)) { ?>
-        <h3>Edit <?php echo $row['event_name']; ?></h3>
-        <div class="row mt-4">
-            <div class="col-lg-6 col-12">
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                    <input type="hidden" name="event_id" value="<?php echo $row['event_id']; ?>">
-                    <div class="form-group">
-                        <label for="event_name">Event name</label>
-                        <input type="text" name="event_name" id="event_name" class="form-control"
-                            value="<?php echo $row['event_name']; ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="event_type">Event type</label>
-                        <select name="event_type" id="event_type" class="form-control" required>
-                            <option <?php if ($row['event_type'] == 'Individual') { echo 'selected'; } ?>
-                                value="Individual">Individual</option>
-                            <option <?php if ($row['event_type'] == 'Group') { echo 'selected'; } ?> value="Group">Group
-                            </option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="event_fee">Event fee</label>
-                        <input type="number" name="event_fee" id="event_fee" class="form-control" min="1"
-                            value="<?php echo $row['event_fee']; ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="category_id">Category</label>
-                        <select name="category_id" id="category_id" class="form-control" required>
-                            <?php
-                            $query = "SELECT * FROM categories";
-                            $result_cat = mysqli_query($con, $query);
+                if ($result) {
+                    if ($row = mysqli_fetch_array($result)) { ?>
+            <h1 class="h3 font-weight-normal mb-4">Edit <?php echo $row['event_name']; ?></h1>
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                        <input type="hidden" name="event_id" value="<?php echo $row['event_id']; ?>">
+                        <div class="form-group">
+                            <label for="event_name">Event name</label>
+                            <input type="text" name="event_name" id="event_name" class="form-control"
+                                value="<?php echo $row['event_name']; ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="event_type">Event type</label>
+                            <select name="event_type" id="event_type" class="form-control" required>
+                                <option <?php if ($row['event_type'] == 'Individual') { echo 'selected'; } ?>
+                                    value="Individual">Individual</option>
+                                <option <?php if ($row['event_type'] == 'Group') { echo 'selected'; } ?> value="Group">
+                                    Group
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="event_fee">Event fee</label>
+                            <input type="number" name="event_fee" id="event_fee" class="form-control" min="1"
+                                value="<?php echo $row['event_fee']; ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="category_id">Category</label>
+                            <select name="category_id" id="category_id" class="form-control" required>
+                                <?php
+                                $query = "SELECT * FROM categories";
+                                $result_cat = mysqli_query($con, $query);
 
-                            if ($result_cat) {
-                                while ($row_cat = mysqli_fetch_array($result_cat)) { ?>
-                            <option <?php if ($row['category_id'] == $row_cat['category_id']) { echo 'selected'; } ?>
-                                value="<?php echo $row_cat['category_id']; ?>">
-                                <?php echo $row_cat['category_name']; ?>
-                            </option>
-                            <?php }
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </form>
+                                if ($result_cat) {
+                                    while ($row_cat = mysqli_fetch_array($result_cat)) { ?>
+                                <option
+                                    <?php if ($row['category_id'] == $row_cat['category_id']) { echo 'selected'; } ?>
+                                    value="<?php echo $row_cat['category_id']; ?>">
+                                    <?php echo $row_cat['category_name']; ?>
+                                </option>
+                                <?php }
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
             </div>
-        </div>
-        <?php
+            <?php
+                    }
                 }
             }
-        }
-        ?>
+            ?>
 
-        <?php include 'includes/_error_toast.php'; ?>
-    </div>
+            <?php include 'includes/_error_toast.php'; ?>
+        </div>
+    </main>
 
     <?php include 'includes/_scripts.php'; ?>
 </body>

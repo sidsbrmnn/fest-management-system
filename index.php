@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+if (isset($_SESSION['user_id'])) {
+    header('Location: dashboard.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -16,11 +20,7 @@ session_start();
 <body>
     <?php include 'includes/_navbar.php'; ?>
 
-    <div class="container py-5">
-        <?php if (isset($_SESSION['user_id'])) { ?>
-        <h1>Hi, <?php echo $_SESSION['user_name']; ?></h1>
-        <?php } ?>
-    </div>
+    <main></main>
 
     <?php include 'includes/_scripts.php'; ?>
 </body>

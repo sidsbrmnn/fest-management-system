@@ -1,3 +1,7 @@
+<footer class="my-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2019-2020 Fest Management</p>
+</footer>
+
 <script src="http://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
     crossorigin="anonymous">
 </script>

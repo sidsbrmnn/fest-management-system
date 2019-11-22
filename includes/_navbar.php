@@ -3,20 +3,26 @@
         <a href="index.php" class="navbar-brand">Fest Management</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
+                <?php if (isset($_SESSION['user_id'])) { ?>
+                <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'dashboard.php') { echo 'active'; } ?>">
+                    <a href="dashboard.php" class="nav-link">Home</a>
+                </li>
+                <?php } else { ?>
                 <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'index.php') { echo 'active'; } ?>">
                     <a href="index.php" class="nav-link">Home</a>
                 </li>
+                <?php } ?>
                 <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'events.php') { echo 'active'; } ?>">
                     <a href="events.php" class="nav-link">Events</a>
                 </li>
                 <?php if (isset($_SESSION['user_id'])) { ?>
                 <li
-                    class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'participants.php') { echo 'active'; } ?>">
-                    <a href="participants.php" class="nav-link">Participants</a>
-                </li>
-                <li
                     class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'organisers.php') { echo 'active'; } ?>">
                     <a href="organisers.php" class="nav-link">Organisers</a>
+                </li>
+                <li
+                    class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'registrations.php') { echo 'active'; } ?>">
+                    <a href="registrations.php" class="nav-link">Registrations</a>
                 </li>
                 <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'users.php') { echo 'active'; } ?>">
                     <a href="users.php" class="nav-link">Users</a>

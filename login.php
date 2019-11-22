@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION['user_id'])) {
-    header('Location: index.php');
+    header('Location: dashboard.php');
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_GET['back'])) {
                 header('Location: ' . $_GET['back']);
             } else {
-                header('Location: index.php');
+                header('Location: dashboard.php');
             }
         } else {
             $error_message = 'Invalid email/password';
@@ -47,28 +47,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <?php include 'includes/_navbar.php'; ?>
 
-    <div class="container py-5" style="position: relative;">
-        <h3>Login</h3>
-        <div class="row mt-4">
-            <div class="col-md-6 col-12">
-                <form
-                    action="<?php echo isset($_GET['back']) ? $_SERVER['PHP_SELF'] . '?back=' . $_GET['back'] : $_SERVER['PHP_SELF'];?><?php echo '' ?>"
-                    method="post">
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" id="password" class="form-control" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </form>
+    <main>
+        <div class="container py-5" style="position: relative;">
+            <h1 class="h3 text-center font-weight-normal mb-4">Please sign in</h1>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-10 col-12 mx-auto">
+                    <form
+                        action="<?php echo isset($_GET['back']) ? $_SERVER['PHP_SELF'] . '?back=' . $_GET['back'] : $_SERVER['PHP_SELF'];?><?php echo '' ?>"
+                        method="post">
+                        <div class="form-group">
+                            <label for="email" class="sr-only">Email address</label>
+                            <input type="email" name="email" id="email" class="form-control py-4"
+                                placeholder="Email address" required autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="sr-only">Password</label>
+                            <input type="password" name="password" id="password" class="form-control py-4"
+                                placeholder="Password" required>
+                        </div>
+                        <hr>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                    </form>
+                </div>
             </div>
-        </div>
 
-        <?php include 'includes/_error_toast.php'; ?>
-    </div>
+            <?php include 'includes/_error_toast.php'; ?>
+        </div>
+    </main>
 
     <?php include 'includes/_scripts.php'; ?>
 </body>
