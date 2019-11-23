@@ -49,47 +49,65 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php include 'includes/_links.php'; ?>
 </head>
 
-<body class="bg-light">
+<body>
     <?php include 'includes/_navbar.php'; ?>
 
     <main>
-        <div class="container text-center py-5" style="position: relative;">
-            <h1 class="h3 font-weight-normal mb-4">Enter your details to register</h1>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-10 col-12 mx-auto">
-                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                        <div class="form-group">
-                            <label for="full_name" class="sr-only">Full name</label>
-                            <input type="text" name="full_name" id="full_name" class="form-control py-4"
-                                placeholder="Full name" required autofocus>
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="sr-only">Email address</label>
-                            <input type="email" name="email" id="email" class="form-control py-4"
-                                placeholder="Email address" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password" class="sr-only">Password</label>
-                            <input type="password" name="password" id="password" class="form-control py-4"
-                                placeholder="Password" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone_no" class="sr-only">Phone number</label>
-                            <input type="text" name="phone_no" id="phone_no" class="form-control py-4"
-                                placeholder="Phone number" required>
-                        </div>
-                        <hr>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="agree-terms" required>
-                            <label class="custom-control-label" for="agree-terms">
-                                <small>I confirm that the information
-                                    given in this form is true, complete and accurate.</small>
-                            </label>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-lg btn-block mt-3">Register</button>
-                    </form>
+        <div class="container py-5" style="position: relative;">
+            <form class="w-lg-50 w-md-75 mx-md-auto" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <div class="mb-5">
+                    <h2 class="h3 text-primary font-weight-normal">
+                        Welcome to <span class="font-weight-semi-bold">Fest Management</span>
+                    </h2>
+                    <p class="text-muted">Fill out the form to get started.</p>
                 </div>
-            </div>
+
+                <div class="form-group">
+                    <label for="full_name" class="form-label">Full name</label>
+                    <input type="text" name="full_name" id="full_name" class="form-control py-4" placeholder="Full name"
+                        required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" name="email" id="email" class="form-control py-4" placeholder="Email address"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" name="password" id="password" class="form-control py-4"
+                        placeholder="********" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone_no" class="form-label">Phone number</label>
+                    <input type="text" name="phone_no" id="phone_no" class="form-control py-4"
+                        placeholder="Phone number" required>
+                </div>
+
+                <div class="mb-4">
+                    <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
+                        <input type="checkbox" class="custom-control-input" id="terms_checkbox" name="terms_checkbox">
+                        <label class="custom-control-label" for="terms_checkbox">
+                            <small>
+                                I confirm that the information given in this form is true, complete and accurate.
+                            </small>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <span class="small text-muted">Already have an account?</span>
+                        <a class="small" href="login.php">Log in</a>
+                    </div>
+
+                    <div class="col-6 text-right">
+                        <button type="submit" class="btn btn-primary py-2">Get started</button>
+                    </div>
+                </div>
+            </form>
 
             <?php include 'includes/_error_toast.php'; ?>
         </div>

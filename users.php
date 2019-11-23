@@ -21,6 +21,23 @@ if (!isset($_SESSION['user_id'])) {
     <?php include 'includes/_navbar.php'; ?>
 
     <main>
+        <div class="bg-primary">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col d-flex align-items-end justify-content-between">
+                        <span>
+                            <h1 class="h3 text-white font-weight-medium mb-2">Howdy,
+                                <?php echo $_SESSION['user_name']; ?></h1>
+                            <span class="d-block text-white"><?php echo $_SESSION['user_id']; ?></span>
+                        </span>
+                        <a class="btn btn-outline-light btn-sm" href="#">
+                            <span class="fas fa-plus small mr-2"></span>
+                            New Registration
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="container py-5" style="position: relative;">
             <h1 class="h3 font-weight-normal mb-4">Users</h1>
             <table class="table table-hover">

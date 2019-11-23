@@ -1,4 +1,4 @@
-<footer class="my-5 text-muted text-center text-small">
+<footer class="py-5 text-muted text-center small">
     <p class="mb-1">&copy; 2019-2020 Fest Management</p>
 </footer>
 
@@ -12,9 +12,14 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 </script>
 <script src="https://kit.fontawesome.com/c379eeb1c2.js" crossorigin="anonymous"></script>
+<script src="js/appear.js"></script>
+<script src="js/circles.min.js"></script>
+<script src="js/hs.core.js"></script>
+<script src="js/hs.chart-pie.js"></script>
 <script>
     $(document).ready(function () {
         $('.toast').toast('show');
+        var items = $.HSCore.components.HSChartPie.init('.js-pie');
     });
 
 </script>
