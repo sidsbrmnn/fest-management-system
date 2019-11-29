@@ -28,42 +28,45 @@ session_start();
                 <?php
                 include 'includes/db_connect.php';
 
-                $query = "SELECT * FROM events NATURAL JOIN categories";
-                $result = mysqli_query($con, $query);
-
+                $result = $db->query("SELECT * FROM events NATURAL JOIN categories");
                 if ($result) {
-                    while ($row = mysqli_fetch_array($result)) { ?>
+                    while ($row = $result->fetch_object()) { ?>
                 <div class="col-lg-4 col-md-6 col-12 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">
-                                <span>
-                                    <a href="view_event.php?id=<?php echo $row['event_id']; ?>"
-                                        class="text-decoration-none text-dark">
-                                        <?php echo $row['event_name']; ?>
-                                    </a>
-                                </span>
-                                <?php if (isset($_SESSION['user_id'])) { ?>
-                                <span class="float-right">
-                                    <a href="edit_event.php?id=<?php echo $row['event_id']; ?>"
-                                        class="text-decoration-none text-warning">
-                                        <i class="far fa-edit fa-xs"></i>
-                                    </a>
-                                    <a href="delete_event.php?id=<?php echo $row['event_id']; ?>"
-                                        class="text-decoration-none text-danger">
-                                        <i class="far fa-trash-alt fa-xs"></i>
-                                    </a>
-                                </span>
-                                <?php } ?>
-                            </h5>
-                            <h6 class="card-subtitle mb-2 text-muted">&#8377; <?php echo $row['event_fee']; ?> -
-                                <?php echo $row['event_type']; ?></h6>
-                            <p class="card-text text-truncate">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Eos, veritatis!</p>
+                            <div class="card-title">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h4 class="h6">
+                                        <a
+                                            href="view_event.php?id=<?php echo $row->event_id; ?>"><?php echo $row->event_name; ?></a>
+                                    </h4>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-icon btn-light bg-white border-0" type="button"
+                                            data-toggle="dropdown">
+                                            <i class="fas fa-ellipsis-h"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right border-0 shadow-sm">
+                                            <a href="edit_event.php?id=<?php echo $row->event_id; ?>"
+                                                class="dropdown-item">
+                                                <small class="fas fa-edit dropdown-item-icon"></small> Edit
+                                            </a>
+                                            <a href="delete_event.php?id=<?php echo $row->event_id; ?>"
+                                                class="dropdown-item">
+                                                <small class="fas fa-trash-alt dropdown-item-icon"></small> Delete</a>
+                                            <a href="#" class="dropdown-item">Link 3</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h6 class="card-subtitle mb-2 text-muted">&#8377; <?php echo $row->event_fee; ?> -
+                                <?php echo $row->event_type; ?></h6>
+                            <p class="card-text" style="height: 48px;">
+                                <?php echo $row->event_desc; ?></p>
                         </div>
                     </div>
                 </div>
                 <?php }
+                    $result->close();
                 } else {
                     $error_message = 'Something went wrong';
                 }

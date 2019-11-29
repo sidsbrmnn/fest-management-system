@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $full_name = $_POST['full_name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $phone_no = $_POST['phone_no'];
+    $phone = $_POST['phone'];
 
     $query = "SELECT * FROM users WHERE email = '$email'";
     $result = mysqli_query($con, $query);
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (mysqli_num_rows($result)) {
             $error_message = 'User already exists with the given email';
         } else {
-            $query = "INSERT INTO users (email, password, full_name, phone_no) VALUES ('$email', '". md5($password) . "', '$full_name', '$phone_no')";
+            $query = "INSERT INTO users (email, pass, full_name, phone) VALUES ('$email', '". md5($password) . "', '$full_name', '$phone')";
             $result = mysqli_query($con, $query);
 
             if ($result) {
@@ -64,35 +64,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="form-group">
                     <label for="full_name" class="form-label">Full name</label>
-                    <input type="text" name="full_name" id="full_name" class="form-control py-4" placeholder="Full name"
+                    <input type="text" name="full_name" id="full_name" class="form-control" placeholder="Full name"
                         required autofocus>
                 </div>
 
                 <div class="form-group">
                     <label for="email" class="form-label">Email address</label>
-                    <input type="email" name="email" id="email" class="form-control py-4" placeholder="Email address"
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Email address"
                         required>
                 </div>
 
                 <div class="form-group">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" name="password" id="password" class="form-control py-4"
-                        placeholder="********" required>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="********"
+                        required>
                 </div>
 
                 <div class="form-group">
-                    <label for="phone_no" class="form-label">Phone number</label>
-                    <input type="text" name="phone_no" id="phone_no" class="form-control py-4"
-                        placeholder="Phone number" required>
+                    <label for="phone" class="form-label">Phone number</label>
+                    <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone number" required>
                 </div>
 
                 <div class="mb-4">
                     <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
-                        <input type="checkbox" class="custom-control-input" id="terms_checkbox" name="terms_checkbox">
+                        <input type="checkbox" class="custom-control-input" id="terms_checkbox" name="terms_checkbox"
+                            required>
                         <label class="custom-control-label" for="terms_checkbox">
-                            <small>
-                                I confirm that the information given in this form is true, complete and accurate.
-                            </small>
+                            <small>I confirm that the information given in this form is true, complete and
+                                accurate.</small>
                         </label>
                     </div>
                 </div>

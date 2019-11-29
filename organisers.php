@@ -7,29 +7,24 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php?back=organisers.php');
 }
 
-if (isset($_POST['type']) && $_POST['type'] == 'remove' && isset($_POST['org_id'])) {
-    $org_id = $_POST['org_id'];
+if (isset($_POST['type']) && $_POST['type'] == 'remove' && isset($_POST['organiser_id'])) {
+    $organiser_id = $_POST['organiser_id'];
 
-    $query = "DELETE FROM organisers WHERE org_id = '$org_id'";
-    $result = mysqli_query($con, $query);
-
+    $result = $db->query("DELETE FROM organisers WHERE organiser_id = '$organiser_id'");
     if (!$result) {
         $error_message = 'Something went wrong.';
     }
 }
 
 if (isset($_POST['type']) && $_POST['type'] == 'add') {
-    $org_name = $_POST['org_name'];
-    $org_email = $_POST['org_email'];
-    $org_phone = $_POST['org_phone'];
+    $organiser_name = $_POST['organiser_name'];
+    $organiser_phone = $_POST['organiser_phone'];
 
-    $query = "INSERT INTO organisers (org_name, org_email, org_phone) VALUES ('$org_name', '$org_email', '$org_phone')";
-    $result = mysqli_query($con, $query);
-
+    $result = $db->query("INSERT INTO organisers (organiser_name, organiser_phone) VALUES ('$organiser_name', '$organiser_phone')");
     if ($result) {
         header('Location: organisers.php');
     } else {
-        $error_message = mysqli_error($con);
+        $error_message = $db->error;
     }
 }
 ?>
@@ -49,6 +44,8 @@ if (isset($_POST['type']) && $_POST['type'] == 'add') {
     <?php include 'includes/_navbar.php'; ?>
 
     <main>
+        <?php include 'includes/_dash_head.php'; ?>
+
         <div class="container py-5" style="position: relative;">
             <h1 class="h3 d-flex align-items-center justify-content-between font-weight-normal mb-4">
                 Organisers
@@ -56,34 +53,34 @@ if (isset($_POST['type']) && $_POST['type'] == 'add') {
                     <i class="fas fa-plus"></i> Add
                 </button>
             </h1>
-            <div class="modal fade" id="newOrganiserModal" tabindex="-1" role="dialog"
-                aria-labelledby="newOrganiserLabel" aria-hidden="true">
+            <div class="modal fade" id="newOrganiserModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="newOrganiserLabel">Add new organiser</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                            <div class="modal-header">
+                                <h5 class="modal-title">New organiser</h5>
+                                <button type="button" class="close" data-dismiss="modal">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="modal-body">
                                 <input type="hidden" name="type" value="add">
                                 <div class="form-group">
-                                    <label for="org_name">Name</label>
-                                    <input type="text" name="org_name" id="org_name" class="form-control" required>
+                                    <label for="organiser_name" class="form-label">Name</label>
+                                    <input type="text" name="organiser_name" id="organiser_name" class="form-control"
+                                        required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="org_email">Email</label>
-                                    <input type="email" name="org_email" id="org_email" class="form-control" required>
+                                    <label for="organiser_phone" class="form-label">Phone</label>
+                                    <input type="text" name="organiser_phone" id="organiser_phone" class="form-control"
+                                        required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="org_phone">Phone</label>
-                                    <input type="text" name="org_phone" id="org_phone" class="form-control" required>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Add</button>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit"
+                                    class="btn btn-primary btn-sm-wide transition-3d-hover">Add</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -91,33 +88,30 @@ if (isset($_POST['type']) && $_POST['type'] == 'add') {
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Email</th>
                         <th>Phone</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $query = "SELECT * FROM organisers";
-                    $result = mysqli_query($con, $query);
-
+                    $result = $db->query("SELECT * FROM organisers");
                     if ($result) {
-                        while ($row = mysqli_fetch_array($result)) { ?>
+                        while ($row = $result->fetch_object()) { ?>
                     <tr>
-                        <td><?php echo $row['org_name']; ?></td>
-                        <td><?php echo $row['org_email']; ?></td>
-                        <td><?php echo $row['org_phone']; ?></td>
+                        <td><?php echo $row->organiser_name; ?></td>
+                        <td><?php echo $row->organiser_phone; ?></td>
                         <td>
                             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                                <input type="hidden" name="org_id" value="<?php echo $row['org_id']; ?>">
+                                <input type="hidden" name="organiser_id" value="<?php echo $row->organiser_id; ?>">
                                 <input type="hidden" name="type" value="remove">
-                                <button type="submit" class="btn btn-danger btn-sm">
+                                <button type="submit" class="btn btn-link btn-sm text-danger p-0">
                                     <i class="far fa-trash-alt"></i> Delete
                                 </button>
                             </form>
                         </td>
                     </tr>
                     <?php }
+                        $result->close();
                     }
                     ?>
                 </tbody>

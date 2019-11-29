@@ -21,6 +21,8 @@ if (!isset($_SESSION['user_id'])) {
     <?php include 'includes/_navbar.php'; ?>
 
     <main>
+        <?php include 'includes/_dash_head.php'; ?>
+
         <div class="container py-5" style="position: relative;">
             <h1 class="h3 font-weight-normal mb-4">
                 Registrations

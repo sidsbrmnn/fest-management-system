@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
     <div class="container">
         <a href="index.php" class="navbar-brand">Fest Management</a>
         <div class="collapse navbar-collapse">
@@ -15,19 +15,6 @@
                 <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'events.php') { echo 'active'; } ?>">
                     <a href="events.php" class="nav-link">Events</a>
                 </li>
-                <?php if (isset($_SESSION['user_id'])) { ?>
-                <li
-                    class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'organisers.php') { echo 'active'; } ?>">
-                    <a href="organisers.php" class="nav-link">Organisers</a>
-                </li>
-                <li
-                    class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'registrations.php') { echo 'active'; } ?>">
-                    <a href="registrations.php" class="nav-link">Registrations</a>
-                </li>
-                <li class="nav-item <?php if (basename($_SERVER['PHP_SELF']) == 'users.php') { echo 'active'; } ?>">
-                    <a href="users.php" class="nav-link">Users</a>
-                </li>
-                <?php } ?>
             </ul>
             <ul class="navbar-nav">
                 <?php if (isset($_SESSION['user_id'])) { ?>

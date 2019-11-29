@@ -5,40 +5,76 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: index.php');
 }
 
+function time_elapsed_string($datetime, $full = false) {
+    date_default_timezone_set('Asia/Kolkata');
+    $now = new DateTime;
+    $ago = new DateTime($datetime);
+    $diff = $now->diff($ago);
+
+    $diff->w = floor($diff->d / 7);
+    $diff->d -= $diff->w * 7;
+
+    $string = array(
+        'y' => 'year',
+        'm' => 'month',
+        'w' => 'week',
+        'd' => 'day',
+        'h' => 'hour',
+        'i' => 'minute',
+        's' => 'second',
+    );
+    foreach ($string as $k => &$v) {
+        if ($diff->$k) {
+            $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+        } else {
+            unset($string[$k]);
+        }
+    }
+
+    if (!$full) $string = array_slice($string, 0, 1);
+    return $string ? implode(', ', $string) . ' ago' : 'just now';
+}
+
 include 'includes/db_connect.php';
 
-$user_id = $_SESSION['user_id'];
-$query = "SELECT COUNT(*) as count FROM participants WHERE registered_by = '$user_id'";
-$result = mysqli_query($con, $query);
-
-if ($result) {
-    if ($row = mysqli_fetch_array($result)) {
-        $my_participant_count = $row['count'];
-    }
-}
-
-$query = "SELECT SUM(event_fee) as contribution FROM participants NATURAL JOIN registrations NATURAL JOIN events WHERE registered_by = '$user_id'";
-$result = mysqli_query($con, $query);
-
-if ($result) {
-    if ($row = mysqli_fetch_array($result)) {
-        $my_total_contribution = $row['contribution'];
-    }
-}
-
-$query = "SELECT SUM(event_fee) as contribution FROM registrations NATURAL JOIN events";
-$result = mysqli_query($con, $query);
-
-if ($result) {
-    if ($row = mysqli_fetch_array($result)) {
-        $total_contribution = $row['contribution'];
-    }
-}
-
 $goal = 10000;
+$user_id = $_SESSION['user_id'];
 
-if (isset($total_contribution)) {
-    $percentage_reached = ($total_contribution / $goal) * 100;
+$result = $db->query("SELECT COUNT(*) as count FROM participants WHERE registered_by = '$user_id'");
+if ($result) {
+    if ($row = $result->fetch_object()) {
+        $my_participant_count = $row->count;
+    }
+
+    $result->close();
+}
+
+$result = $db->query("SELECT SUM(event_fee) as contribution FROM participants NATURAL JOIN registrations NATURAL JOIN events WHERE registered_by = '$user_id'");
+if ($result) {
+    if ($row = $result->fetch_object()) {
+        $my_total_contribution = $row->contribution;
+    }
+
+    $result->close();
+}
+
+$result = $db->query("SELECT SUM(event_fee) as contribution FROM registrations NATURAL JOIN events");
+if ($result) {
+    if ($row = $result->fetch_object()) {
+        $total_contribution = $row->contribution;
+        $percentage_reached = ($total_contribution / $goal) * 100;
+    }
+
+    $result->close();
+}
+
+$result = $db->query("SELECT COUNT(*) as count FROM registrations");
+if ($result) {
+    if ($row = $result->fetch_object()) {
+        $participant_count = $row->count;
+    }
+
+    $result->close();
 }
 ?>
 
@@ -57,23 +93,7 @@ if (isset($total_contribution)) {
     <?php include 'includes/_navbar.php'; ?>
 
     <main class="bg-light">
-        <div class="bg-primary">
-            <div class="container py-5">
-                <div class="row">
-                    <div class="col d-flex align-items-end justify-content-between">
-                        <span>
-                            <h1 class="h3 text-white font-weight-medium mb-2">Howdy,
-                                <?php echo $_SESSION['user_name']; ?></h1>
-                            <span class="d-block text-white"><?php echo $_SESSION['user_id']; ?></span>
-                        </span>
-                        <a class="btn btn-outline-light btn-sm transition-3d-hover" href="select_events.php">
-                            <span class="fas fa-plus small mr-2"></span>
-                            New Registration
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php include 'includes/_dash_head.php'; ?>
 
         <div class="container py-5">
             <div class="card-deck d-block d-lg-flex">
@@ -146,7 +166,7 @@ if (isset($total_contribution)) {
 
                         <hr class="mt-2 mb-4">
 
-                        <div class="d-block d-sm-flex justify-content-between align-items-center">
+                        <div class="d-block d-sm-flex justify-content-between align-items-center mb-4">
                             <div class="mb-3 mb-sm-0">
                                 <span class="d-block">&#8377;</span>
                                 <span
@@ -158,11 +178,13 @@ if (isset($total_contribution)) {
                                     data-circles-value="<?php echo $percentage_reached; ?>" data-circles-max-value="100"
                                     data-circles-bg-color="rgba(0, 201, 167, 0.1)" data-circles-fg-color="#00c9a7"
                                     data-circles-radius="50" data-circles-stroke-width="4"
-                                    data-circles-additional-text="%" data-circles-duration="1000"
+                                    data-circles-additional-text="%" data-circles-duration="500"
                                     data-circles-scroll-animate="true" data-circles-color="#00c9a7"
                                     data-circles-font-size="24"></div>
                             </div>
                         </div>
+
+                        <a href="#" class="btn btn-block btn-primary transition-3d-hover">Update</a>
                     </div>
 
                     <div class="card-footer bg-white p-4">
@@ -195,12 +217,80 @@ if (isset($total_contribution)) {
                         <hr class="mt-2 mb-4">
 
                         <div class="row">
-                            <div class="col-12">
+                            <?php
+                            $result = $db->query("SELECT event_name, COUNT(*) AS count FROM registrations NATURAL JOIN events GROUP BY event_id ORDER BY COUNT(participant_id) DESC LIMIT 4");
+
+                            if ($result) {
+                                while ($row = $result->fetch_object()) { ?>
+                            <div class="col-3">
+                                <div class="js-vr-progress progress-vertical rounded" data-toggle="tooltip"
+                                    data-placement="right"
+                                    title="<?php echo $row->event_name; ?> (<?php echo $row->count; ?>)">
+                                    <div class="js-vr-progress-bar bg-primary rounded-bottom" role="progressbar"
+                                        style="height: <?php echo $row->count / $participant_count * 100; ?>%"
+                                        aria-valuenow="<?php echo $row->count / $participant_count * 100; ?>"
+                                        aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                                }
+                                $result->close();
+                            } ?>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h4 class="h6">Recent Activity</h4>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-icon btn-outline-dark border-0" type="button"
+                                    data-toggle="dropdown">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right border-0 shadow-sm">
+                                    <a href="#" class="dropdown-item">
+                                        <small class="fas fa-cogs dropdown-item-icon"></small> Link 1
+                                    </a>
+                                    <a href="#" class="dropdown-item">Link 2</a>
+                                    <a href="#" class="dropdown-item">Link 3</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="mt-2 mb-4">
+
+                        <div class="overflow-hidden">
+                            <div class="js-scrollbar pr-3" style="max-height: 250px;">
+                                <ul class="list-unstyled u-indicator-vertical-dashed">
+                                    <?php
+                                    $result = $db->query("SELECT full_name, log_message, log_time FROM logs INNER JOIN users ON user = email ORDER BY log_time DESC");
+
+                                    if ($result) {
+                                        while ($row = $result->fetch_object()) { ?>
+                                    <li class="media u-indicator-vertical-dashed-item">
+                                        <span class="btn btn-xs btn-icon btn-primary rounded-circle mr-3">
+                                            <span class="btn-icon__inner"><?php echo $row->full_name[0]; ?></span>
+                                        </span>
+                                        <div class="media-body">
+                                            <h5 class="my-1" style="font-size: 0.875rem;">
+                                                <?php echo $row->full_name; ?></h5>
+                                            <p class="small mb-1"><?php echo $row->log_message; ?></p>
+                                            <small
+                                                class="d-block text-muted"><?php echo time_elapsed_string($row->log_time); ?></small>
+                                        </div>
+                                    </li>
+                                    <?php
+                                        }
+                                        $result->close();
+                                    } ?>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card border-0 shadow-sm"></div>
             </div>
         </div>
     </main>

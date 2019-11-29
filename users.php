@@ -21,54 +21,60 @@ if (!isset($_SESSION['user_id'])) {
     <?php include 'includes/_navbar.php'; ?>
 
     <main>
-        <div class="bg-primary">
-            <div class="container py-5">
-                <div class="row">
-                    <div class="col d-flex align-items-end justify-content-between">
-                        <span>
-                            <h1 class="h3 text-white font-weight-medium mb-2">Howdy,
-                                <?php echo $_SESSION['user_name']; ?></h1>
-                            <span class="d-block text-white"><?php echo $_SESSION['user_id']; ?></span>
-                        </span>
-                        <a class="btn btn-outline-light btn-sm" href="#">
-                            <span class="fas fa-plus small mr-2"></span>
-                            New Registration
-                        </a>
+        <?php include 'includes/_dash_head.php'; ?>
+
+        <div class="container py-5">
+            <div class="mb-4">
+                <h1 class="h3"></h1>
+            </div>
+            <div class="row">
+                <?php
+                include 'includes/db_connect.php';
+
+                $result = $db->query("SELECT full_name, email, contribution, COUNT(participant_id) AS participant_count FROM users LEFT JOIN participants ON users.email = participants.registered_by GROUP BY email ORDER BY full_name");
+
+                if ($result) {
+                    while ($row = $result->fetch_object()) { ?>
+                <div class="col-lg-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <span class="btn btn-icon btn-primary rounded-circle mb-2">
+                                    <span class="btn-icon__inner"><?php
+                                        $names = split_name($row->full_name);
+                                        echo $names[0][0] . $names[1][0];
+                                        ?></span>
+                                </span>
+                                <h2 class="h6 mb-0"><?php echo $row->full_name; ?></h2>
+                            </div>
+
+                            <div class="d-flex justify-content-around">
+                                <div class="bg-light rounded p-3">
+                                    <span class="d-block small font-weight-semi-bold small">Participants</span>
+                                    <span class="lead"><?php echo $row->participant_count; ?></span>
+                                </div>
+                                <div class="bg-light rounded p-3">
+                                    <span class="d-block small font-weight-semi-bold">Contribution</span>
+                                    <span
+                                        class="lead"><?php echo isset($row->total_amount) ? '&#8377;' . $row->total_amount : '-'; ?></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-footer bg-white py-3">
+                            <a class="btn btn-sm btn-outline-primary transition-3d-hover"
+                                href="mail:<?php echo $row->email; ?>">
+                                <span class="far fa-envelope mr-2"></span>
+                                Send a Message
+                            </a>
+                        </div>
                     </div>
                 </div>
+                <?php }
+                    $result->close();
+                }
+                ?>
             </div>
-        </div>
-        <div class="container py-5" style="position: relative;">
-            <h1 class="h3 font-weight-normal mb-4">Users</h1>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Total Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    include 'includes/db_connect.php';
-
-                    $query = "SELECT * FROM users";
-                    $result = mysqli_query($con, $query);
-
-                    if ($result) {
-                        while ($row = mysqli_fetch_array($result)) { ?>
-                    <tr>
-                        <td><?php echo $row['full_name']; ?></td>
-                        <td><?php echo $row['email']; ?></td>
-                        <td><?php echo $row['phone_no']; ?></td>
-                        <td><?php echo $row['total_amount']; ?></td>
-                    </tr>
-                    <?php }
-                    }
-                    ?>
-                </tbody>
-            </table>
         </div>
     </main>
 

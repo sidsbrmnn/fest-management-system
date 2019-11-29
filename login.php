@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $query = "SELECT * FROM users WHERE email = '" . $email . "' AND password = '" . md5($password) . "'";
+    $query = "SELECT * FROM users WHERE email = '" . $email . "' AND pass = '" . md5($password) . "'";
     $result = mysqli_query($con, $query);
 
     if ($result) {
@@ -61,14 +61,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="form-group">
                     <label for="email" class="form-label">Email address</label>
-                    <input type="email" name="email" id="email" class="form-control py-4" placeholder="Email address"
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Email address"
                         required autofocus>
                 </div>
 
                 <div class="form-group">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" name="password" id="password" class="form-control py-4"
-                        placeholder="********" required>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="********"
+                        required>
                 </div>
 
                 <div class="row align-items-center">

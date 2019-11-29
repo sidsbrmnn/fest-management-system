@@ -12,14 +12,22 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
 </script>
 <script src="https://kit.fontawesome.com/c379eeb1c2.js" crossorigin="anonymous"></script>
+<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="js/appear.js"></script>
 <script src="js/circles.min.js"></script>
 <script src="js/hs.core.js"></script>
+<script src="js/hs.malihu-scrollbar.js"></script>
+<script src="js/hs.progress-bar.js"></script>
 <script src="js/hs.chart-pie.js"></script>
 <script>
     $(document).ready(function () {
         $('.toast').toast('show');
+        $.HSCore.components.HSMalihuScrollBar.init($('.js-scrollbar'));
         var items = $.HSCore.components.HSChartPie.init('.js-pie');
+        var verticalProgressBars = $.HSCore.components.HSProgressBar.init('.js-vr-progress', {
+            direction: 'vertical',
+            indicatorSelector: '.js-vr-progress-bar'
+        });
     });
 
 </script>
