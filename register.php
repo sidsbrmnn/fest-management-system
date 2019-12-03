@@ -8,7 +8,7 @@ if (isset($_SESSION['user_id'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include 'includes/db_connect.php';
 
-    $full_name = $_POST['full_name'];
+    $full_name = $_POST['first_name'] . ' ' . $_POST['last_name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $phone = $_POST['phone'];
@@ -54,7 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <main>
         <div class="container py-5" style="position: relative;">
-            <form class="w-lg-50 w-md-75 mx-md-auto" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <form id="registerForm" class="w-lg-50 w-md-75 mx-md-auto" action="<?php echo $_SERVER['PHP_SELF']; ?>"
+                method="post" novalidate>
                 <div class="mb-5">
                     <h2 class="h3 text-primary font-weight-normal">
                         Welcome to <span class="font-weight-semi-bold">Fest Management</span>
@@ -62,33 +63,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <p class="text-muted">Fill out the form to get started.</p>
                 </div>
 
-                <div class="form-group">
-                    <label for="full_name" class="form-label">Full name</label>
-                    <input type="text" name="full_name" id="full_name" class="form-control" placeholder="Full name"
-                        required autofocus>
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label for="first_name" class="form-label">Full name</label>
+                        <input type="text" name="first_name" id="first_name" class="form-control"
+                            placeholder="First name" autofocus>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="last_name" class="form-label">&nbsp;</label>
+                        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last name">
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="email" class="form-label">Email address</label>
-                    <input type="email" name="email" id="email" class="form-control" placeholder="Email address"
-                        required>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Email address">
                 </div>
 
                 <div class="form-group">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" name="password" id="password" class="form-control" placeholder="********"
-                        required>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="********">
                 </div>
 
                 <div class="form-group">
                     <label for="phone" class="form-label">Phone number</label>
-                    <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone number" required>
+                    <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone number">
                 </div>
 
                 <div class="mb-4">
                     <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
-                        <input type="checkbox" class="custom-control-input" id="terms_checkbox" name="terms_checkbox"
-                            required>
+                        <input type="checkbox" class="custom-control-input" id="terms_checkbox" name="terms_checkbox">
                         <label class="custom-control-label" for="terms_checkbox">
                             <small>I confirm that the information given in this form is true, complete and
                                 accurate.</small>
@@ -113,6 +117,68 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </main>
 
     <?php include 'includes/_scripts.php'; ?>
+    <script>
+        $(document).ready(function () {
+            $.validator.setDefaults({
+                errorClass: 'invalid-feedback',
+                highlight: function (element) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element) {
+                    $(element).removeClass('is-invalid');
+                },
+                errorPlacement: function (error, element) {
+                    if (element.prop('type') === 'checkbox') {
+                        error.insertAfter(element.parent());
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+
+            $.validator.addMethod("phoneIN", function (phone_number, element) {
+                phone_number = phone_number.replace(/\s+/g, "");
+                return this.optional(element) || phone_number.length > 9 &&
+                    phone_number.match(/^([6-9]{1}\d{9}){1}?$/);
+            }, "Please specify a valid phone number.");
+
+            $('#registerForm').validate({
+                rules: {
+                    first_name: {
+                        required: true,
+                        nowhitespace: true,
+                        lettersonly: true
+                    },
+                    last_name: {
+                        required: true,
+                        nowhitespace: true,
+                        lettersonly: true
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    password: {
+                        required: true,
+                    },
+                    phone: {
+                        required: true,
+                        phoneIN: true
+                    },
+                    terms_checkbox: {
+                        required: true
+                    }
+                },
+                messages: {
+                    email: {
+                        email: 'Please specify a valid email address.'
+                    }
+                }
+            })
+
+        })
+
+    </script>
 </body>
 
 </html>
