@@ -200,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-sm-wide transition-3d-hover mr-1">Add</button>
-                    <a href="#" class="btn btn-secondary btn-sm-wide transition-3d-hover">Cancel</a>
+                    <a href="events.php" class="btn btn-secondary btn-sm-wide transition-3d-hover">Cancel</a>
 
                 </form>
 
