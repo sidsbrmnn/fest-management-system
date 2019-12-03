@@ -56,7 +56,8 @@ if (isset($_POST['type']) && $_POST['type'] == 'add') {
             <div class="modal fade" id="newOrganiserModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                        <form id="newOrganiserForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"
+                            novalidate>
                             <div class="modal-header">
                                 <h5 class="modal-title">New organiser</h5>
                                 <button type="button" class="close" data-dismiss="modal">
@@ -67,13 +68,11 @@ if (isset($_POST['type']) && $_POST['type'] == 'add') {
                                 <input type="hidden" name="type" value="add">
                                 <div class="form-group">
                                     <label for="organiser_name" class="form-label">Name</label>
-                                    <input type="text" name="organiser_name" id="organiser_name" class="form-control"
-                                        required>
+                                    <input type="text" name="organiser_name" id="organiser_name" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="organiser_phone" class="form-label">Phone</label>
-                                    <input type="text" name="organiser_phone" id="organiser_phone" class="form-control"
-                                        required>
+                                    <input type="text" name="organiser_phone" id="organiser_phone" class="form-control">
                                 </div>
                             </div>
                             <div class="modal-footer">
