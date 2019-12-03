@@ -23,6 +23,29 @@
 <script src="js/hs.chart-pie.js"></script>
 <script>
     $(document).ready(function () {
+        $.validator.setDefaults({
+            errorClass: 'invalid-feedback',
+            highlight: function (element) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element) {
+                $(element).removeClass('is-invalid');
+            },
+            errorPlacement: function (error, element) {
+                if (element.prop('type') === 'checkbox') {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+        $.validator.addMethod("phoneIN", function (phone_number, element) {
+            phone_number = phone_number.replace(/\s+/g, "");
+            return this.optional(element) || phone_number.length > 9 &&
+                phone_number.match(/^([6-9]{1}\d{9}){1}?$/);
+        }, "Please specify a valid phone number.");
+
         $('.toast').toast('show');
         $.HSCore.components.HSMalihuScrollBar.init($('.js-scrollbar'));
         var items = $.HSCore.components.HSChartPie.init('.js-pie');
