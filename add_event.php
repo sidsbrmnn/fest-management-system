@@ -210,6 +210,51 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </main>
 
     <?php include 'includes/_scripts.php'; ?>
+    <script>
+        $(document).ready(function () {
+            $('#newEventForm').validate({
+                rules: {
+                    event_name: {
+                        required: true
+                    },
+                    event_type: {
+                        required: true,
+                        nowhitespace: true,
+                        lettersonly: true
+                    },
+                    event_date: {
+                        required: true,
+                        digits: true
+                    },
+                    event_month: {
+                        required: true,
+                        digits: true
+                    },
+                    event_year: {
+                        required: true,
+                        digits: true
+                    },
+                    category_id: {
+                        required: true,
+                        digits: true
+                    },
+                    organiser_id: {
+                        required: true,
+                        digits: true
+                    },
+                    event_fee: {
+                        required: true,
+                        digits: true,
+                        min: 100
+                    },
+                    event_desc: {
+                        required: true
+                    }
+                }
+            });
+        })
+
+    </script>
 </body>
 
 </html>
