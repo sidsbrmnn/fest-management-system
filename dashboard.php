@@ -266,7 +266,7 @@ if ($result) {
                             <div class="js-scrollbar pr-3" style="max-height: 250px;">
                                 <ul class="list-unstyled u-indicator-vertical-dashed">
                                     <?php
-                                    $result = $db->query("SELECT full_name, log_message, log_time FROM logs INNER JOIN users ON user = email ORDER BY log_time DESC");
+                                    $result = $db->query("SELECT full_name, log_message, log_time FROM logs INNER JOIN users ON log_user = email ORDER BY log_time DESC");
 
                                     if ($result) {
                                         while ($row = $result->fetch_object()) { ?>
