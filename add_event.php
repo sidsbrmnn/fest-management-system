@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <div class="bg-light py-5">
             <div class="container" style="position: relative;">
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <form id="newEventForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" novalidate>
                     <div class="mb-4">
                         <h2 class="h4">Create an event</h1>
                     </div>
@@ -54,13 +54,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="form-group">
                                 <label for="event_name" class="form-label">Event name</label>
                                 <input type="text" name="event_name" id="event_name" class="form-control"
-                                    placeholder="Event X" required>
+                                    placeholder="Event X">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="event_type" class="form-label">Event type</label>
-                                <select name="event_type" id="event_type" class="form-control custom-select" required>
+                                <select name="event_type" id="event_type" class="form-control custom-select">
                                     <option value="Individual">Individual</option>
                                     <option value="Group">Group</option>
                                 </select>
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="event_month" class="form-label">Event date</label>
-                                <select name="event_month" id="event_month" class="form-control custom-select" required>
+                                <select name="event_month" id="event_month" class="form-control custom-select">
                                     <option value="" disabled>Select month</option>
                                     <option value="01">January</option>
                                     <option value="02">Febuary</option>
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="col-md-2 col-6">
                             <div class="form-group">
                                 <label for="event_date" class="form-label">&nbsp;</label>
-                                <select name="event_date" id="event_date" class="form-control custom-select" required>
+                                <select name="event_date" id="event_date" class="form-control custom-select">
                                     <option value="" disabled>Select date</option>
                                     <option value="01">1</option>
                                     <option value="02">2</option>
@@ -131,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="col-md-2 col-6">
                             <div class="form-group">
                                 <label for="event_year" class="form-label">&nbsp;</label>
-                                <select name="event_year" id="event_year" class="form-control custom-select" required>
+                                <select name="event_year" id="event_year" class="form-control custom-select">
                                     <option value="" disabled>Select year</option>
                                     <option value="2019" selected>2019</option>
                                     <option value="2020">2020</option>
@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="form-group">
                                 <label for="event_fee" class="form-label">Event fee</label>
                                 <input type="number" name="event_fee" id="event_fee" class="form-control" min="1"
-                                    placeholder="100" required>
+                                    placeholder="100">
                             </div>
                         </div>
                     </div>
@@ -151,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="category_id" class="form-label">Category</label>
-                                <select name="category_id" id="category_id" class="form-control custom-select" required>
+                                <select name="category_id" id="category_id" class="form-control custom-select">
                                     <option value="" disabled selected>Select category</option>
                                     <?php
                                     include 'includes/db_connect.php';
@@ -171,8 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="organiser_id" class="form-label">Organiser</label>
-                                <select name="organiser_id" id="organiser_id" class="form-control custom-select"
-                                    required>
+                                <select name="organiser_id" id="organiser_id" class="form-control custom-select">
                                     <option value="" disabled selected>Select organiser</option>
                                     <?php
                                     include 'includes/db_connect.php';
@@ -195,8 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="event_desc" class="form-label">Description</label>
-                                <textarea name="event_desc" id="event_desc" rows="5" class="form-control"
-                                    required></textarea>
+                                <textarea name="event_desc" id="event_desc" rows="5" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
