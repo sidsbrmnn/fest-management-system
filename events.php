@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+if (isset($_GET['err'])) {
+    $error_message = $_GET['err'];
+}
 ?>
 
 <!DOCTYPE html>
