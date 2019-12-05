@@ -50,10 +50,10 @@ if (isset($_GET['err'])) {
                                             <i class="fas fa-ellipsis-h"></i>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right border-0 shadow-sm">
-                                            <a href="edit_event.php?id=<?php echo $row->event_id; ?>"
+                                            <!-- <a href="edit_event.php?id=<?php // echo $row->event_id; ?>"
                                                 class="dropdown-item">
                                                 <small class="fas fa-edit dropdown-item-icon"></small> Edit
-                                            </a>
+                                            </a> -->
                                             <a href="delete_event.php?id=<?php echo $row->event_id; ?>"
                                                 class="dropdown-item">
                                                 <small class="fas fa-trash-alt dropdown-item-icon"></small> Delete</a>
