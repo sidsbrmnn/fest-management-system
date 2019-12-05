@@ -9,7 +9,10 @@ if (isset($_GET['id'])) {
     include 'includes/db_connect.php';
 
     $event_id = $_GET['id'];
-    $db->query("DELETE FROM events WHERE event_id = '$event_id'");
-
-    header('Location: events.php');
+    $result = $db->query("DELETE FROM events WHERE event_id = '$event_id'");
+    if ($result) {
+        header('Location: events.php');
+    } else {
+        header('Location: events.php?err=' . urlencode('Cannot delete the event.'));
+    }
 }
