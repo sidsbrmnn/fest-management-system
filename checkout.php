@@ -85,7 +85,7 @@ $total_amount = 0;
                 </div>
 
                 <div class="col-md-8 order-md-1">
-                    <form action="" method="post">
+                    <form id="checkoutForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" novalidate>
                         <div class="mb-4">
                             <h2 class="h4">Participant details</h2>
                         </div>
@@ -93,17 +93,17 @@ $total_amount = 0;
                         <div class="form-group">
                             <label for="participant_name" class="form-label">Name</label>
                             <input type="text" name="participant_name" id="participant_name" class="form-control"
-                                placeholder="Siddharth S" required>
+                                placeholder="Siddharth S">
                         </div>
                         <div class="form-group">
                             <label for="participant_email" class="form-label">Email</label>
                             <input type="email" name="participant_email" id="participant_email" class="form-control"
-                                placeholder="siddharth@gmail.com" required>
+                                placeholder="siddharth@gmail.com">
                         </div>
                         <div class="form-group">
                             <label for="participant_phone" class="form-label">Phone</label>
                             <input type="text" name="participant_phone" id="participant_phone" class="form-control"
-                                placeholder="9845739474" required>
+                                placeholder="9845739474">
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
                             <a href="select_events.php"><small class="fas fa-arrow-left mr-2"></small> Return to
