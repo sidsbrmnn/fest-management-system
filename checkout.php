@@ -119,6 +119,26 @@ $total_amount = 0;
     </main>
 
     <?php include 'includes/_scripts.php'; ?>
+    <script>
+        $(document).ready(function () {
+            $('#checkoutForm').validate({
+                rules: {
+                    participant_name: {
+                        required: true
+                    },
+                    participant_email: {
+                        required: true,
+                        email: true
+                    },
+                    participant_phone: {
+                        required: true,
+                        phoneIN: true
+                    }
+                }
+            });
+        })
+
+    </script>
 </body>
 
 </html>
