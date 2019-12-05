@@ -12,7 +12,7 @@ if (isset($_POST['type']) && $_POST['type'] == 'remove' && isset($_POST['organis
 
     $result = $db->query("DELETE FROM organisers WHERE organiser_id = '$organiser_id'");
     if (!$result) {
-        $error_message = 'Something went wrong.';
+        $error_message = 'Organiser cannot be deleted.';
     }
 }
 
@@ -48,8 +48,9 @@ if (isset($_POST['type']) && $_POST['type'] == 'add') {
 
         <div class="container py-5" style="position: relative;">
             <h1 class="h3 d-flex align-items-center justify-content-between font-weight-normal mb-4">
-                Organisers
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newOrganiserModal">
+                <span>Organisers</span>
+                <button type="button" class="btn btn-primary btn-sm transition-3d-hover" data-toggle="modal"
+                    data-target="#newOrganiserModal">
                     <i class="fas fa-plus"></i> Add
                 </button>
             </h1>
@@ -103,7 +104,7 @@ if (isset($_POST['type']) && $_POST['type'] == 'add') {
                             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                                 <input type="hidden" name="organiser_id" value="<?php echo $row->organiser_id; ?>">
                                 <input type="hidden" name="type" value="remove">
-                                <button type="submit" class="btn btn-link btn-sm text-danger p-0">
+                                <button type="submit" class="bg-transparent border-0 text-danger p-0">
                                     <i class="far fa-trash-alt"></i> Delete
                                 </button>
                             </form>
