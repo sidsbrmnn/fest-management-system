@@ -36,7 +36,7 @@ if (!isset($_SESSION['user_id'])) {
                 if ($result) {
                     while ($row = $result->fetch_object()) { ?>
                 <div class="col-lg-4">
-                    <div class="card text-center">
+                    <div class="card text-center shadow">
                         <div class="card-body">
                             <div class="mb-4">
                                 <span class="btn btn-icon btn-primary rounded-circle mb-2">
