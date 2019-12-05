@@ -127,19 +127,6 @@ if ($result) {
                         </div>
                     </div>
                 </div>
-
-                <!-- <div class="card border-0 shadow-sm">
-                    <div class="card-body px-4 py-5">
-                        <div class="d-flex align-items-center">
-                            <span class="rounded-circle text-warning bg-light p-4 mr-4"><i
-                                    class="fas fa-coins fa-2x"></i></span>
-                            <span>
-                                <span class="d-block h2">8723</span>
-                                <h2 class="h6 text-secondary font-weight-normal mb-0">Lorem, ipsum.</h2>
-                            </span>
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </div>
 
@@ -148,7 +135,7 @@ if ($result) {
                 <div class="card border-0 shadow-sm mb-4 mb-lg-0">
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h4 class="h6">Collection</h4>
+                            <h4 class="h6 mb-0">Collection</h4>
                             <div class="dropdown">
                                 <button class="btn btn-sm btn-icon btn-outline-dark border-0" type="button"
                                     data-toggle="dropdown">
@@ -164,7 +151,7 @@ if ($result) {
                             </div>
                         </div>
 
-                        <hr class="mt-2 mb-4">
+                        <hr class="mt-3 mb-4">
 
                         <div class="d-block d-sm-flex justify-content-between align-items-center mb-4">
                             <div class="mb-3 mb-sm-0">
@@ -198,7 +185,7 @@ if ($result) {
                 <div class="card border-0 shadow-sm mb-4 mb-lg-0">
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h4 class="h6">Registrations</h4>
+                            <h4 class="h6 mb-0">Registrations</h4>
                             <div class="dropdown">
                                 <button class="btn btn-sm btn-icon btn-outline-dark border-0" type="button"
                                     data-toggle="dropdown">
@@ -214,7 +201,7 @@ if ($result) {
                             </div>
                         </div>
 
-                        <hr class="mt-2 mb-4">
+                        <hr class="mt-3 mb-4">
 
                         <div class="row">
                             <?php
@@ -244,7 +231,7 @@ if ($result) {
                 <div class="card border-0 shadow-sm">
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h4 class="h6">Recent Activity</h4>
+                            <h4 class="h6 mb-0">Recent Activity</h4>
                             <div class="dropdown">
                                 <button class="btn btn-sm btn-icon btn-outline-dark border-0" type="button"
                                     data-toggle="dropdown">
@@ -260,7 +247,7 @@ if ($result) {
                             </div>
                         </div>
 
-                        <hr class="mt-2 mb-4">
+                        <hr class="mt-3 mb-4">
 
                         <div class="overflow-hidden">
                             <div class="js-scrollbar pr-3" style="max-height: 250px;">
