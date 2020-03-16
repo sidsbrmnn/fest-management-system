@@ -36,7 +36,7 @@ if (isset($_GET['err'])) {
                 <?php
                 include 'includes/db_connect.php';
 
-                $query = "SELECT * FROM events";
+                $query = "SELECT * FROM events ORDER BY event_name";
                 $result = mysqli_query($con, $query);
                 if ($result) {
                     while ($row = mysqli_fetch_array($result)) { ?>
@@ -50,9 +50,7 @@ if (isset($_GET['err'])) {
                                 </a>
                             </h5>
                             <h6 class="card-subtitle mb-2 text-muted">&#8377; <?php echo $row['event_fee']; ?></h6>
-                            <p class="card-text text-truncate">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Eos,
-                                veritatis!</p>
+                            <p class="card-text text-truncate"><?php echo $row['event_desc']; ?></p>
                             <form action="update_cart.php" method="post">
                                 <input type="hidden" name="event_id" value="<?php echo $row['event_id']; ?>">
                                 <?php if (isset($_SESSION['cart'][$row['event_id']])) { ?>

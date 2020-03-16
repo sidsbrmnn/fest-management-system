@@ -32,7 +32,7 @@ if (isset($_GET['err'])) {
                 <?php
                 include 'includes/db_connect.php';
 
-                $result = $db->query("SELECT * FROM events NATURAL JOIN categories");
+                $result = $db->query("SELECT * FROM events NATURAL JOIN categories ORDER BY event_name");
                 if ($result) {
                     while ($row = $result->fetch_object()) { ?>
                 <div class="col-lg-4 col-md-6 col-12 mb-4">
@@ -64,7 +64,7 @@ if (isset($_GET['err'])) {
                             </div>
                             <h6 class="card-subtitle mb-2 text-muted">&#8377; <?php echo $row->event_fee; ?> -
                                 <?php echo $row->event_type; ?></h6>
-                            <p class="card-text" style="height: 48px;">
+                            <p class="card-text overflow-hidden" style="height: 48px;">
                                 <?php echo $row->event_desc; ?></p>
                         </div>
                     </div>
