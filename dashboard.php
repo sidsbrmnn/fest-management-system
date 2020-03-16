@@ -134,22 +134,7 @@ if ($result) {
             <div class="card-deck d-block d-lg-flex">
                 <div class="card border-0 shadow-sm mb-4 mb-lg-0">
                     <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h4 class="h6 mb-0">Collection</h4>
-                            <div class="dropdown">
-                                <button class="btn btn-sm btn-icon btn-outline-dark border-0" type="button"
-                                    data-toggle="dropdown">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right border-0 shadow-sm">
-                                    <a href="#" class="dropdown-item">
-                                        <small class="fas fa-cogs dropdown-item-icon"></small> Link 1
-                                    </a>
-                                    <a href="#" class="dropdown-item">Link 2</a>
-                                    <a href="#" class="dropdown-item">Link 3</a>
-                                </div>
-                            </div>
-                        </div>
+                        <h4 class="h6 mb-0">Collection</h4>
 
                         <hr class="mt-3 mb-4">
 
@@ -184,22 +169,7 @@ if ($result) {
 
                 <div class="card border-0 shadow-sm mb-4 mb-lg-0">
                     <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h4 class="h6 mb-0">Registrations</h4>
-                            <div class="dropdown">
-                                <button class="btn btn-sm btn-icon btn-outline-dark border-0" type="button"
-                                    data-toggle="dropdown">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right border-0 shadow-sm">
-                                    <a href="#" class="dropdown-item">
-                                        <small class="fas fa-cogs dropdown-item-icon"></small> Link 1
-                                    </a>
-                                    <a href="#" class="dropdown-item">Link 2</a>
-                                    <a href="#" class="dropdown-item">Link 3</a>
-                                </div>
-                            </div>
-                        </div>
+                        <h4 class="h6 mb-0">Registrations</h4>
 
                         <hr class="mt-3 mb-4">
 
@@ -230,22 +200,7 @@ if ($result) {
 
                 <div class="card border-0 shadow-sm">
                     <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h4 class="h6 mb-0">Recent Activity</h4>
-                            <div class="dropdown">
-                                <button class="btn btn-sm btn-icon btn-outline-dark border-0" type="button"
-                                    data-toggle="dropdown">
-                                    <i class="fas fa-ellipsis-h"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right border-0 shadow-sm">
-                                    <a href="#" class="dropdown-item">
-                                        <small class="fas fa-cogs dropdown-item-icon"></small> Link 1
-                                    </a>
-                                    <a href="#" class="dropdown-item">Link 2</a>
-                                    <a href="#" class="dropdown-item">Link 3</a>
-                                </div>
-                            </div>
-                        </div>
+                        <h4 class="h6 mb-0">Recent Activity</h4>
 
                         <hr class="mt-3 mb-4">
 
