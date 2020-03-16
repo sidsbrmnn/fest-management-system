@@ -37,6 +37,10 @@ function time_elapsed_string($datetime, $full = false) {
 
 include 'includes/db_connect.php';
 
+if (isset($_GET['update']) && $_GET['update'] == 'contribution') {
+    $db->query('CALL calc_contribution()');
+}
+
 $goal = 10000;
 $user_id = $_SESSION['user_id'];
 
@@ -49,7 +53,7 @@ if ($result) {
     $result->close();
 }
 
-$result = $db->query("SELECT SUM(event_fee) as contribution FROM participants NATURAL JOIN registrations NATURAL JOIN events WHERE registered_by = '$user_id'");
+$result = $db->query("SELECT contribution FROM users WHERE email = '$user_id'");
 if ($result) {
     if ($row = $result->fetch_object()) {
         $my_total_contribution = $row->contribution;
@@ -58,7 +62,7 @@ if ($result) {
     $result->close();
 }
 
-$result = $db->query("SELECT SUM(event_fee) as contribution FROM registrations NATURAL JOIN events");
+$result = $db->query("SELECT SUM(contribution) as contribution FROM users");
 if ($result) {
     if ($row = $result->fetch_object()) {
         $total_contribution = $row->contribution;
@@ -68,12 +72,12 @@ if ($result) {
     $result->close();
 }
 
-$result = $db->query("SELECT COUNT(*) as count FROM registrations");
+$participant_count = 0;
+$result = $db->query("SELECT COUNT(*) AS count FROM registrations GROUP BY event_id ORDER BY COUNT(participant_id) DESC LIMIT 1");
 if ($result) {
     if ($row = $result->fetch_object()) {
-        $participant_count = $row->count;
+        $participant_count = $participant_count + $row->count;
     }
-
     $result->close();
 }
 ?>
@@ -106,7 +110,7 @@ if ($result) {
                                 <span class="d-block h2">
                                     <?php echo isset($my_participant_count) ? $my_participant_count : '-'; ?>
                                 </span>
-                                <h2 class="h6 text-secondary font-weight-normal mb-0">Total participants</h2>
+                                <h2 class="h6 text-secondary font-weight-normal mb-0">My participants</h2>
                             </span>
                         </div>
                     </div>
@@ -122,7 +126,7 @@ if ($result) {
                                     <sup><small>&#8377;</small></sup>
                                     <?php echo isset($my_total_contribution) ? $my_total_contribution : '-'; ?>
                                 </span>
-                                <h2 class="h6 text-secondary font-weight-normal mb-0">Total contribution</h2>
+                                <h2 class="h6 text-secondary font-weight-normal mb-0">My contribution</h2>
                             </span>
                         </div>
                     </div>
@@ -156,7 +160,8 @@ if ($result) {
                             </div>
                         </div>
 
-                        <a href="#" class="btn btn-block btn-primary transition-3d-hover">Update</a>
+                        <a href="dashboard.php?update=contribution"
+                            class="btn btn-block btn-primary transition-3d-hover">Update</a>
                     </div>
 
                     <div class="card-footer bg-white p-4">
