@@ -31,6 +31,8 @@ if (!isset($_SESSION['user_id'])) {
                 <?php
                 include 'includes/db_connect.php';
 
+                $db->query("CALL calc_contribution()");
+
                 $result = $db->query("SELECT full_name, email, contribution, COUNT(participant_id) AS participant_count FROM users LEFT JOIN participants ON users.email = participants.registered_by GROUP BY email ORDER BY full_name");
 
                 if ($result) {
@@ -56,7 +58,7 @@ if (!isset($_SESSION['user_id'])) {
                                 <div class="bg-light rounded p-3">
                                     <span class="d-block small font-weight-semi-bold">Contribution</span>
                                     <span
-                                        class="lead"><?php echo isset($row->total_amount) ? '&#8377;' . $row->total_amount : '-'; ?></span>
+                                        class="lead"><?php echo isset($row->contribution) ? '&#8377;' . $row->contribution : '-'; ?></span>
                                 </div>
                             </div>
                         </div>
