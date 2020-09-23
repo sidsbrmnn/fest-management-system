@@ -158,9 +158,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                     $result = $db->query("SELECT * FROM categories ORDER BY category_name");
                                     if ($result) {
-                                        while ($row = $result->fetch_object()) { ?>
-                                    <option value="<?php echo $row->category_id; ?>">
-                                        <?php echo $row->category_name; ?>
+                                        while ($row = $result->fetch_array()) { ?>
+                                    <option value="<?php echo $row['category_id']; ?>">
+                                        <?php echo $row['category_name']; ?>
                                     </option>
                                     <?php }
                                     }
@@ -178,9 +178,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                     $result = $db->query("SELECT * FROM organisers ORDER BY organiser_name");
                                     if ($result) {
-                                        while ($row = $result->fetch_object()) { ?>
-                                    <option value="<?php echo $row->organiser_id; ?>">
-                                        <?php echo $row->organiser_name; ?>
+                                        while ($row = $result->fetch_array()) { ?>
+                                    <option value="<?php echo $row['organiser_id']; ?>">
+                                        <?php echo $row['organiser_name']; ?>
                                     </option>
                                     <?php }
                                     }

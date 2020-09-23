@@ -96,13 +96,13 @@ if (isset($_POST['type']) && $_POST['type'] == 'add') {
                     <?php
                     $result = $db->query("SELECT * FROM organisers");
                     if ($result) {
-                        while ($row = $result->fetch_object()) { ?>
+                        while ($row = $result->fetch_array()) { ?>
                     <tr>
-                        <td><?php echo $row->organiser_name; ?></td>
-                        <td><?php echo $row->organiser_phone; ?></td>
+                        <td><?php echo $row['organiser_name']; ?></td>
+                        <td><?php echo $row['organiser_phone']; ?></td>
                         <td>
                             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                                <input type="hidden" name="organiser_id" value="<?php echo $row->organiser_id; ?>">
+                                <input type="hidden" name="organiser_id" value="<?php echo $row['organiser_id']; ?>">
                                 <input type="hidden" name="type" value="remove">
                                 <button type="submit" class="bg-transparent border-0 text-danger p-0">
                                     <i class="far fa-trash-alt"></i> Delete

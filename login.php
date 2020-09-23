@@ -12,10 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
 
     $query = "SELECT * FROM users WHERE email = '" . $email . "' AND pass = '" . md5($password) . "'";
-    $result = mysqli_query($con, $query);
+    $result = $db->query($query);
 
     if ($result) {
-        if ($row = mysqli_fetch_array($result)) {
+        if ($row = $result->fetch_array()) {
             $_SESSION['user_id'] = $row['email'];
             $_SESSION['user_name'] = $row['full_name'];
 

@@ -36,10 +36,9 @@ if (isset($_GET['err'])) {
                 <?php
                 include 'includes/db_connect.php';
 
-                $query = "SELECT * FROM events ORDER BY event_name";
-                $result = mysqli_query($con, $query);
+                $result = $db->query("SELECT * FROM events ORDER BY event_name");
                 if ($result) {
-                    while ($row = mysqli_fetch_array($result)) { ?>
+                    while ($row = $result->fetch_array()) { ?>
                 <div class="col-lg-4 col-md-6 col-12 mb-4">
                     <div class="card">
                         <div class="card-body">

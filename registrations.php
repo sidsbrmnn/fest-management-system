@@ -40,10 +40,10 @@ if (!isset($_SESSION['user_id'])) {
                     include 'includes/db_connect.php';
 
                     $query = "SELECT * FROM registrations NATURAL JOIN participants NATURAL JOIN events";
-                    $result = mysqli_query($con, $query);
+                    $result = $db->query($query);
 
                     if ($result) {
-                        while ($row = mysqli_fetch_array($result)) { ?>
+                        while ($row = $result->fetch_array()) { ?>
                     <tr>
                         <td><?php echo $row['participant_name']; ?></td>
                         <td><?php echo $row['event_name']; ?></td>

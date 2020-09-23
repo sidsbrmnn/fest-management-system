@@ -14,14 +14,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $phone = $_POST['phone'];
 
     $query = "SELECT * FROM users WHERE email = '$email'";
-    $result = mysqli_query($con, $query);
+    $result = $db->query($query);
 
     if ($result) {
-        if (mysqli_num_rows($result)) {
+        if ($result->num_rows) {
             $error_message = 'User already exists with the given email';
         } else {
-            $query = "INSERT INTO users (email, pass, full_name, phone) VALUES ('$email', '". md5($password) . "', '$full_name', '$phone')";
-            $result = mysqli_query($con, $query);
+            $query = "INSERT INTO users (email, pass, full_name, phone) VALUES ('$email', '" . md5($password) . "', '$full_name', '$phone')";
+            $result = $db->query($query);
 
             if ($result) {
                 $_SESSION['user_id'] = $email;
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 header('Location: dashboard.php');
             } else {
-                $error_message = mysqli_error($con);
+                $error_message = $db->error;
             }
         }
     } else {
@@ -46,11 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Register - Fest Management</title>
-    <?php include 'includes/_links.php'; ?>
+    <?php include 'includes/_links.php';?>
 </head>
 
 <body>
-    <?php include 'includes/_navbar.php'; ?>
+    <?php include 'includes/_navbar.php';?>
 
     <main>
         <div class="container py-5" style="position: relative;">
@@ -112,11 +112,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </form>
 
-            <?php include 'includes/_error_toast.php'; ?>
+            <?php include 'includes/_error_toast.php';?>
         </div>
     </main>
 
-    <?php include 'includes/_scripts.php'; ?>
+    <?php include 'includes/_scripts.php';?>
     <script>
         $(document).ready(function () {
             $('#registerForm').validate({

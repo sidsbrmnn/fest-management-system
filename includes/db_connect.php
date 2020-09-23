@@ -1,18 +1,11 @@
 <?php
 $host = 'localhost';
-$user = 'root';
+$username = 'root';
 $password = '';
 $database = 'festmanagement';
 
-$con = mysqli_connect($host, $user, $password, $database);
-
-if (!$con) {
-    die('Could not connect to the database');
-}
-
-$db = new mysqli('localhost', 'root', '', 'festmanagement');
+$db = new mysqli($host, $username, $password, $database);
 
 if ($db->connect_error) {
     die('Connect Error (' . $db->connect_errno . ')' . $db->connect_error);
 }
-?>

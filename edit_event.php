@@ -27,8 +27,8 @@ if (isset($_GET['id'])) {
     $event_id = $_GET['id'];
     $result = $db->query("SELECT * FROM events WHERE event_id = '$event_id'");
     if ($result) {
-        if ($row = $result->fetch_object()) {
-            $event_date = new DateTime($row->event_date);
+        if ($row = $result->fetch_array()) {
+            $event_date = new DateTime($row['event_date']);
 ?>
 
 <!DOCTYPE html>
@@ -54,14 +54,14 @@ if (isset($_GET['id'])) {
                         <h2 class="h4">Edit event</h1>
                     </div>
 
-                    <input type="hidden" name="event_id" value="<?php echo $row->event_id; ?>">
+                    <input type="hidden" name="event_id" value="<?php echo $row['event_id']; ?>">
 
                     <div class="row mb-4">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="event_name" class="form-label">Event name</label>
                                 <input type="text" name="event_name" id="event_name" class="form-control"
-                                    value="<?php echo $row->event_name; ?>">
+                                    value="<?php echo $row['event_name']; ?>">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -152,7 +152,7 @@ if (isset($_GET['id'])) {
                                 $participants = $db->query("SELECT * FROM registrations WHERE event_id = '$event_id'");
                                 ?>
                                 <input type="number" name="event_fee" id="event_fee" class="form-control" min="1"
-                                    value="<?php echo $row->event_fee; ?>"
+                                    value="<?php echo $row['event_fee']; ?>"
                                     <?php echo $participants->num_rows > 0 ? 'disabled' : ''; ?>>
                             </div>
                         </div>
@@ -167,10 +167,10 @@ if (isset($_GET['id'])) {
                                     <?php
                                     $categories = $db->query("SELECT * FROM categories ORDER BY category_name");
                                     if ($categories) {
-                                        while ($category_row = $categories->fetch_object()) { ?>
-                                    <option value="<?php echo $category_row->category_id; ?>"
-                                        <?php echo $category_row->category_id == $row->category_id ? 'selected' : ''; ?>>
-                                        <?php echo $category_row->category_name; ?>
+                                        while ($category_row = $categories->fetch_array()) { ?>
+                                    <option value="<?php echo $category_row['category_id']; ?>"
+                                        <?php echo $category_row['category_id'] == $row['category_id'] ? 'selected' : ''; ?>>
+                                        <?php echo $category_row['category_name']; ?>
                                     </option>
                                     <?php }
                                     }
@@ -186,10 +186,10 @@ if (isset($_GET['id'])) {
                                     <?php
                                     $organisers = $db->query("SELECT * FROM organisers ORDER BY organiser_name");
                                     if ($organisers) {
-                                        while ($organiser_row = $organisers->fetch_object()) { ?>
-                                    <option value="<?php echo $organiser_row->organiser_id; ?>"
-                                        <?php echo $organiser_row->organiser_id == $row->organiser_id ? 'selected' : ''; ?>>
-                                        <?php echo $organiser_row->organiser_name; ?>
+                                        while ($organiser_row = $organisers->fetch_array()) { ?>
+                                    <option value="<?php echo $organiser_row['organiser_id']; ?>"
+                                        <?php echo $organiser_row['organiser_id'] == $row['organiser_id'] ? 'selected' : ''; ?>>
+                                        <?php echo $organiser_row['organiser_name']; ?>
                                     </option>
                                     <?php }
                                     }

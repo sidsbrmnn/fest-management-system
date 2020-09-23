@@ -24,11 +24,9 @@ session_start();
 
                 include 'includes/db_connect.php';
 
-                $query = "SELECT * FROM events WHERE event_id = '$event_id'";
-                $result = mysqli_query($con, $query);
-
+                $result = $db->query("SELECT * FROM events WHERE event_id = '$event_id'");
                 if ($result) {
-                    if ($row = mysqli_fetch_array($result)) { ?>
+                    if ($row = $result->fetch_array()) { ?>
             <h1 class="h3 font-weight-normal mb-4"><?php echo $row['event_name'] ?></h1>
             <div class="row">
                 <div class="col">

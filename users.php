@@ -36,7 +36,7 @@ if (!isset($_SESSION['user_id'])) {
                 $result = $db->query("SELECT full_name, email, contribution, COUNT(participant_id) AS participant_count FROM users LEFT JOIN participants ON users.email = participants.registered_by GROUP BY email ORDER BY full_name");
 
                 if ($result) {
-                    while ($row = $result->fetch_object()) { ?>
+                    while ($row = $result->fetch_array()) { ?>
                 <div class="col-lg-4">
                     <div class="card text-center shadow">
                         <div class="card-body">
