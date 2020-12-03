@@ -20,6 +20,16 @@ A fest management system using PHP and MySQL. This was done as a part of Databas
 
 Feel free to fork this repo and make pull requests
 
+Maybe some stuff to do here:
+
+- [ ] Prototype the UI
+
+- [ ] Use something better than Bootstrap (surely can do better here)
+
+- [ ] Migrate it to a better stack (maybe)
+
+- [ ] Use PostgreSQL over MySQL
+
 ## License
 
     MIT License
