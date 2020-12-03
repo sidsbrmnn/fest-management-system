@@ -9,7 +9,7 @@ if (isset($_POST['type']) && $_POST['type'] == 'add' && isset($_POST['event_id']
     $result = $db->query($query);
 
     if ($result) {
-        if ($row = $result->fetch_array()) {
+        if ($row = $result->fetch_assoc()) {
             $_SESSION['cart'][$event_id]['event_name'] = $row['event_name'];
             $_SESSION['cart'][$event_id]['event_fee'] = $row['event_fee'];
             $_SESSION['cart'][$event_id]['event_type'] = $row['event_type'];

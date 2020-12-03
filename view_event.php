@@ -26,7 +26,7 @@ session_start();
 
                 $result = $db->query("SELECT * FROM events WHERE event_id = '$event_id'");
                 if ($result) {
-                    if ($row = $result->fetch_array()) { ?>
+                    if ($row = $result->fetch_assoc()) { ?>
             <h1 class="h3 font-weight-normal mb-4"><?php echo $row['event_name'] ?></h1>
             <div class="row">
                 <div class="col">

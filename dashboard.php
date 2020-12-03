@@ -46,8 +46,8 @@ $user_id = $_SESSION['user_id'];
 
 $result = $db->query("SELECT COUNT(*) as count FROM participants WHERE registered_by = '$user_id'");
 if ($result) {
-    if ($row = $result->fetch_array()) {
-        $my_participant_count = $row->count;
+    if ($row = $result->fetch_assoc()) {
+        $my_participant_count = $row['count'];
     }
 
     $result->close();
@@ -55,8 +55,8 @@ if ($result) {
 
 $result = $db->query("SELECT contribution FROM users WHERE email = '$user_id'");
 if ($result) {
-    if ($row = $result->fetch_array()) {
-        $my_total_contribution = $row->contribution;
+    if ($row = $result->fetch_assoc()) {
+        $my_total_contribution = $row['contribution'];
     }
 
     $result->close();
@@ -64,8 +64,8 @@ if ($result) {
 
 $result = $db->query("SELECT SUM(contribution) as contribution FROM users");
 if ($result) {
-    if ($row = $result->fetch_array()) {
-        $total_contribution = $row->contribution;
+    if ($row = $result->fetch_assoc()) {
+        $total_contribution = $row['contribution'];
         $percentage_reached = ($total_contribution / $goal) * 100;
     }
 
@@ -75,8 +75,8 @@ if ($result) {
 $participant_count = 0;
 $result = $db->query("SELECT COUNT(*) AS count FROM registrations GROUP BY event_id ORDER BY COUNT(participant_id) DESC LIMIT 1");
 if ($result) {
-    if ($row = $result->fetch_array()) {
-        $participant_count = $participant_count + $row->count;
+    if ($row = $result->fetch_assoc()) {
+        $participant_count = $participant_count + $row['count'];
     }
     $result->close();
 }
@@ -183,14 +183,14 @@ if ($result) {
                             $result = $db->query("SELECT event_name, COUNT(*) AS count FROM registrations NATURAL JOIN events GROUP BY event_id ORDER BY COUNT(participant_id) DESC LIMIT 4");
 
                             if ($result) {
-                                while ($row = $result->fetch_array()) { ?>
+                                while ($row = $result->fetch_assoc()) { ?>
                             <div class="col-3">
                                 <div class="js-vr-progress progress-vertical rounded" data-toggle="tooltip"
                                     data-placement="right"
-                                    title="<?php echo $row->event_name; ?> (<?php echo $row->count; ?>)">
+                                    title="<?php echo $row['event_name']; ?> (<?php echo $row['count']; ?>)">
                                     <div class="js-vr-progress-bar bg-primary rounded-bottom" role="progressbar"
-                                        style="height: <?php echo $row->count / $participant_count * 100; ?>%"
-                                        aria-valuenow="<?php echo $row->count / $participant_count * 100; ?>"
+                                        style="height: <?php echo $row['count'] / $participant_count * 100; ?>%"
+                                        aria-valuenow="<?php echo $row['count'] / $participant_count * 100; ?>"
                                         aria-valuemin="0" aria-valuemax="100">
                                     </div>
                                 </div>
@@ -216,17 +216,17 @@ if ($result) {
                                     $result = $db->query("SELECT full_name, log_message, log_time FROM logs INNER JOIN users ON log_user = email ORDER BY log_time DESC");
 
                                     if ($result) {
-                                        while ($row = $result->fetch_array()) { ?>
+                                        while ($row = $result->fetch_assoc()) { ?>
                                     <li class="media u-indicator-vertical-dashed-item">
                                         <span class="btn btn-xs btn-icon btn-primary rounded-circle mr-3">
-                                            <span class="btn-icon__inner"><?php echo $row->full_name[0]; ?></span>
+                                            <span class="btn-icon__inner"><?php echo $row['full_name'][0]; ?></span>
                                         </span>
                                         <div class="media-body">
                                             <h5 class="my-1" style="font-size: 0.875rem;">
-                                                <?php echo $row->full_name; ?></h5>
-                                            <p class="small mb-1"><?php echo $row->log_message; ?></p>
+                                                <?php echo $row['full_name']; ?></h5>
+                                            <p class="small mb-1"><?php echo $row['log_message']; ?></p>
                                             <small
-                                                class="d-block text-muted"><?php echo time_elapsed_string($row->log_time); ?></small>
+                                                class="d-block text-muted"><?php echo time_elapsed_string($row['log_time']); ?></small>
                                         </div>
                                     </li>
                                     <?php

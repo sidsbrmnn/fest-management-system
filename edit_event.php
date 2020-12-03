@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
     $event_id = $_GET['id'];
     $result = $db->query("SELECT * FROM events WHERE event_id = '$event_id'");
     if ($result) {
-        if ($row = $result->fetch_array()) {
+        if ($row = $result->fetch_assoc()) {
             $event_date = new DateTime($row['event_date']);
 ?>
 
@@ -167,7 +167,7 @@ if (isset($_GET['id'])) {
                                     <?php
                                     $categories = $db->query("SELECT * FROM categories ORDER BY category_name");
                                     if ($categories) {
-                                        while ($category_row = $categories->fetch_array()) { ?>
+                                        while ($category_row = $categories->fetch_assoc()) { ?>
                                     <option value="<?php echo $category_row['category_id']; ?>"
                                         <?php echo $category_row['category_id'] == $row['category_id'] ? 'selected' : ''; ?>>
                                         <?php echo $category_row['category_name']; ?>
@@ -186,7 +186,7 @@ if (isset($_GET['id'])) {
                                     <?php
                                     $organisers = $db->query("SELECT * FROM organisers ORDER BY organiser_name");
                                     if ($organisers) {
-                                        while ($organiser_row = $organisers->fetch_array()) { ?>
+                                        while ($organiser_row = $organisers->fetch_assoc()) { ?>
                                     <option value="<?php echo $organiser_row['organiser_id']; ?>"
                                         <?php echo $organiser_row['organiser_id'] == $row['organiser_id'] ? 'selected' : ''; ?>>
                                         <?php echo $organiser_row['organiser_name']; ?>

@@ -34,7 +34,7 @@ if (isset($_GET['err'])) {
 
                 $result = $db->query("SELECT * FROM events NATURAL JOIN categories ORDER BY event_name");
                 if ($result) {
-                    while ($row = $result->fetch_array()) { ?>
+                    while ($row = $result->fetch_assoc()) { ?>
                 <div class="col-lg-4 col-md-6 col-12 mb-4">
                     <div class="card">
                         <div class="card-body">

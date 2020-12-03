@@ -43,7 +43,7 @@ if (!isset($_SESSION['user_id'])) {
                     $result = $db->query($query);
 
                     if ($result) {
-                        while ($row = $result->fetch_array()) { ?>
+                        while ($row = $result->fetch_assoc()) { ?>
                     <tr>
                         <td><?php echo $row['participant_name']; ?></td>
                         <td><?php echo $row['event_name']; ?></td>

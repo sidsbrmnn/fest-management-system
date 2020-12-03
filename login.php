@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $db->query($query);
 
     if ($result) {
-        if ($row = $result->fetch_array()) {
+        if ($row = $result->fetch_assoc()) {
             $_SESSION['user_id'] = $row['email'];
             $_SESSION['user_name'] = $row['full_name'];
 

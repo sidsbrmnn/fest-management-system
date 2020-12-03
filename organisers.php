@@ -96,7 +96,7 @@ if (isset($_POST['type']) && $_POST['type'] == 'add') {
                     <?php
                     $result = $db->query("SELECT * FROM organisers");
                     if ($result) {
-                        while ($row = $result->fetch_array()) { ?>
+                        while ($row = $result->fetch_assoc()) { ?>
                     <tr>
                         <td><?php echo $row['organiser_name']; ?></td>
                         <td><?php echo $row['organiser_phone']; ?></td>
