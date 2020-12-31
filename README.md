@@ -26,7 +26,7 @@ Maybe some stuff to do here:
 
 - [ ] Use something better than Bootstrap (surely can do better here)
 
-- [ ] Migrate it to a better stack (maybe)
+- [ ] Migrate it to Laravel
 
 - [ ] Use PostgreSQL over MySQL
 
