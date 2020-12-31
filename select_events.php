@@ -36,45 +36,42 @@ if (isset($_GET['err'])) {
                 <?php
                 include 'includes/db_connect.php';
 
-                $result = $db->query("SELECT * FROM events ORDER BY event_name");
+                $result = $db->query('SELECT * FROM events ORDER BY event_name');
                 if ($result) {
                     while ($row = $result->fetch_assoc()) { ?>
-                <div class="col-lg-4 col-md-6 col-12 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="view_event.php?id=<?php echo $row['event_id']; ?>"
-                                    class="text-decoration-none text-dark">
-                                    <?php echo $row['event_name']; ?>
-                                </a>
-                            </h5>
-                            <h6 class="card-subtitle mb-2 text-muted">&#8377; <?php echo $row['event_fee']; ?></h6>
-                            <p class="card-text text-truncate"><?php echo $row['event_desc']; ?></p>
-                            <form action="update_cart.php" method="post">
-                                <input type="hidden" name="event_id" value="<?php echo $row['event_id']; ?>">
-                                <?php if (isset($_SESSION['cart'][$row['event_id']])) { ?>
-                                <input type="hidden" name="type" value="remove">
-                                <button type="submit" class="btn btn-danger btn-sm float-right">
-                                    <i class="fas fa-times"></i> Remove
-                                </button>
-                                <?php } else { ?>
-                                <input type="hidden" name="type" value="add">
-                                <button type="submit" class="btn btn-primary btn-sm float-right">
-                                    <i class="fas fa-check"></i> Select
-                                </button>
-                                <?php } ?>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <?php
+                        <div class="col-lg-4 col-md-6 col-12 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <a href="view_event.php?id=<?php echo $row['event_id']; ?>" class="text-decoration-none text-dark">
+                                            <?php echo $row['event_name']; ?>
+                                        </a>
+                                    </h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">&#8377; <?php echo $row['event_fee']; ?></h6>
+                                    <p class="card-text text-truncate"><?php echo $row['event_desc']; ?></p>
+                                    <form action="update_cart.php" method="post">
+                                        <input type="hidden" name="event_id" value="<?php echo $row['event_id']; ?>">
+                                        <?php if (isset($_SESSION['cart'][$row['event_id']])) { ?>
+                                            <input type="hidden" name="type" value="remove">
+                                            <button type="submit" class="btn btn-danger btn-sm float-right">
+                                                <i class="fas fa-times"></i> Remove
+                                            </button>
+                                        <?php } else { ?>
+                                            <input type="hidden" name="type" value="add">
+                                            <button type="submit" class="btn btn-primary btn-sm float-right">
+                                                <i class="fas fa-check"></i> Select
+                                            </button>
+                                        <?php } ?>
+                                    </form>
+                                </div>
+                        <?php
                     }
                 }
-                ?>
-            </div>
+                        ?>
+                            </div>
 
-            <?php include 'includes/_error_toast.php'; ?>
-        </div>
+                            <?php include 'includes/_error_toast.php'; ?>
+                        </div>
     </main>
 
     <?php include 'includes/_scripts.php'; ?>

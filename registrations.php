@@ -39,23 +39,23 @@ if (!isset($_SESSION['user_id'])) {
                     <?php
                     include 'includes/db_connect.php';
 
-                    $query = "SELECT * FROM registrations NATURAL JOIN participants NATURAL JOIN events";
+                    $query = 'SELECT * FROM registrations NATURAL JOIN participants NATURAL JOIN events';
                     $result = $db->query($query);
 
                     if ($result) {
                         while ($row = $result->fetch_assoc()) { ?>
-                    <tr>
-                        <td><?php echo $row['participant_name']; ?></td>
-                        <td><?php echo $row['event_name']; ?></td>
-                        <td>
-                            <a href="view_participant.php?id=<?php echo $row['participant_id']; ?>" class="">
-                                <i class="far fa-eye"></i> View
-                            </a>
-                            <a href="tel:<?php echo $row['participant_phone']; ?>" class="ml-2">
-                                <i class="fas fa-phone-alt"></i> Call
-                            </a>
-                        </td>
-                    </tr>
+                            <tr>
+                                <td><?php echo $row['participant_name']; ?></td>
+                                <td><?php echo $row['event_name']; ?></td>
+                                <td>
+                                    <a href="view_participant.php?id=<?php echo $row['participant_id']; ?>" class="">
+                                        <i class="far fa-eye"></i> View
+                                    </a>
+                                    <a href="tel:<?php echo $row['participant_phone']; ?>" class="ml-2">
+                                        <i class="fas fa-phone-alt"></i> Call
+                                    </a>
+                                </td>
+                            </tr>
                     <?php }
                     }
                     ?>

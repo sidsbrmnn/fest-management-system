@@ -28,4 +28,3 @@ if (isset($_POST['type']) && $_POST['type'] == 'remove' && isset($_POST['event_i
 
     header('Location: select_events.php');
 }
-?>

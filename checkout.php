@@ -65,16 +65,18 @@ $total_amount = 0;
                         </div>
                         <?php foreach ($_SESSION['cart'] as $event_id => $event) {
                             $total_amount = $total_amount + $event['event_fee']; ?>
-                        <div class="border-bottom pb-3 mb-3">
-                            <div class="d-flex align-items-start justify-content-between">
-                                <span>
-                                    <h6 class="mb-0"><?php echo $event['event_name']; ?></h6>
-                                    <small class="text-muted"><?php echo $event['event_type']; ?></small>
-                                </span>
-                                <span class="text-muted">&#8377;<?php echo $event['event_fee']; ?></span>
+                            <div class="border-bottom pb-3 mb-3">
+                                <div class="d-flex align-items-start justify-content-between">
+                                    <span>
+                                        <h6 class="mb-0"><?php echo $event['event_name']; ?>
+                                        </h6>
+                                        <small class="text-muted"><?php echo $event['event_type']; ?></small>
+                                    </span>
+                                    <span class="text-muted">&#8377;<?php echo $event['event_fee']; ?></span>
+                                </div>
                             </div>
-                        </div>
-                        <?php } ?>
+                        <?php
+                        } ?>
                         <div class="media align-items-center">
                             <span class="text-secondary">Total</span>
                             <div class="media-body text-right">
@@ -92,21 +94,19 @@ $total_amount = 0;
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
                         <div class="form-group">
                             <label for="participant_name" class="form-label">Name</label>
-                            <input type="text" name="participant_name" id="participant_name" class="form-control"
-                                placeholder="Siddharth S">
+                            <input type="text" name="participant_name" id="participant_name" class="form-control" placeholder="Siddharth S">
                         </div>
                         <div class="form-group">
                             <label for="participant_email" class="form-label">Email</label>
-                            <input type="email" name="participant_email" id="participant_email" class="form-control"
-                                placeholder="siddharth@gmail.com">
+                            <input type="email" name="participant_email" id="participant_email" class="form-control" placeholder="siddharth@gmail.com">
                         </div>
                         <div class="form-group">
                             <label for="participant_phone" class="form-label">Phone</label>
-                            <input type="text" name="participant_phone" id="participant_phone" class="form-control"
-                                placeholder="9845739474">
+                            <input type="text" name="participant_phone" id="participant_phone" class="form-control" placeholder="9845739474">
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
-                            <a href="select_events.php"><small class="fas fa-arrow-left mr-2"></small> Return to
+                            <a href="select_events.php"><small class="fas fa-arrow-left mr-2"></small>
+                                Return to
                                 select events</a>
                             <button type="submit" class="btn btn-primary btn-pill transition-3d-hover">Continue</button>
                         </div>
@@ -120,7 +120,7 @@ $total_amount = 0;
 
     <?php include 'includes/_scripts.php'; ?>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#checkoutForm').validate({
                 rules: {
                     participant_name: {
@@ -137,7 +137,6 @@ $total_amount = 0;
                 }
             });
         })
-
     </script>
 </body>
 

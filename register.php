@@ -46,28 +46,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Register - Fest Management</title>
-    <?php include 'includes/_links.php';?>
+    <?php include 'includes/_links.php'; ?>
 </head>
 
 <body>
-    <?php include 'includes/_navbar.php';?>
+    <?php include 'includes/_navbar.php'; ?>
 
     <main>
         <div class="container py-5" style="position: relative;">
-            <form id="registerForm" class="w-lg-50 w-md-75 mx-md-auto" action="<?php echo $_SERVER['PHP_SELF']; ?>"
-                method="post" novalidate>
+            <form id="registerForm" class="w-lg-50 w-md-75 mx-md-auto" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" novalidate>
                 <div class="mb-5">
                     <h2 class="h3 text-primary font-weight-normal">
-                        Welcome to <span class="font-weight-semi-bold">Fest Management</span>
+                        Welcome to <span class="font-weight-semi-bold">Fest
+                            Management</span>
                     </h2>
                     <p class="text-muted">Fill out the form to get started.</p>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-6">
-                        <label for="first_name" class="form-label">Full name</label>
-                        <input type="text" name="first_name" id="first_name" class="form-control"
-                            placeholder="First name" autofocus>
+                        <label for="first_name" class="form-label">Full
+                            name</label>
+                        <input type="text" name="first_name" id="first_name" class="form-control" placeholder="First name" autofocus>
                     </div>
                     <div class="form-group col-6">
                         <label for="last_name" class="form-label">&nbsp;</label>
@@ -94,7 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
                         <input type="checkbox" class="custom-control-input" id="terms_checkbox" name="terms_checkbox">
                         <label class="custom-control-label" for="terms_checkbox">
-                            <small>I confirm that the information given in this form is true, complete and
+                            <small>I confirm that the information given in this
+                                form is true, complete and
                                 accurate.</small>
                         </label>
                     </div>
@@ -102,23 +103,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <div class="row align-items-center">
                     <div class="col-6">
-                        <span class="small text-muted">Already have an account?</span>
+                        <span class="small text-muted">Already have an
+                            account?</span>
                         <a class="small" href="login.php">Log in</a>
                     </div>
 
                     <div class="col-6 text-right">
-                        <button type="submit" class="btn btn-primary py-2">Get started</button>
+                        <button type="submit" class="btn btn-primary py-2">Get
+                            started</button>
                     </div>
                 </div>
             </form>
 
-            <?php include 'includes/_error_toast.php';?>
+            <?php include 'includes/_error_toast.php'; ?>
         </div>
     </main>
 
-    <?php include 'includes/_scripts.php';?>
+    <?php include 'includes/_scripts.php'; ?>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#registerForm').validate({
                 rules: {
                     first_name: {
@@ -154,7 +157,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             })
 
         })
-
     </script>
 </body>
 

@@ -6,7 +6,7 @@
  * @requires appear.js (v1.0.3)
  *
  */
-(function($) {
+(function ($) {
     'use strict';
 
     $.HSCore.components.HSProgressBar = {
@@ -26,12 +26,12 @@
             indicatorSelector: 'progress-bar-indicator',
             moveElementSelector: false,
             moveElementTo: 'currentPosition',
-            onChange: function(value) {},
-            beforeUpdate: function() {},
-            afterUpdate: function() {},
-            onMoveElementChange: function(value) {},
-            beforeMoveElementUpdate: function() {},
-            afterMoveElementUpdate: function() {}
+            onChange: function (value) {},
+            beforeUpdate: function () {},
+            afterUpdate: function () {},
+            onMoveElementChange: function (value) {},
+            beforeMoveElementUpdate: function () {},
+            afterMoveElementUpdate: function () {},
         },
 
         /**
@@ -49,7 +49,7 @@
          *
          * @return jQuery currentCollection - collection of initialized items.
          */
-        init: function(selector, config) {
+        init: function (selector, config) {
             if (!(selector && $(selector).length)) return;
 
             this.extendHorizontalProgressBar();
@@ -69,7 +69,7 @@
          *
          * @return undefined
          */
-        _initProgressBar: function(selector, config) {
+        _initProgressBar: function (selector, config) {
             var self = this,
                 currentCollection = $();
 
@@ -77,8 +77,8 @@
                 bounds: config['bounds'],
                 debounce: config['debounce'],
 
-                init: function() {
-                    $(selector).each(function(i, el) {
+                init: function () {
+                    $(selector).each(function (i, el) {
                         var $this = $(el);
 
                         if (config['direction'] === 'horizontal') {
@@ -98,17 +98,15 @@
                     });
                 },
 
-                elements: function() {
+                elements: function () {
                     return document.querySelectorAll(selector);
                 },
 
-                appear: function(el) {
+                appear: function (el) {
                     // console.log( $(el).data('ProgressBar'), $(el).data('value') );
 
-                    $(el)
-                        .data('ProgressBar')
-                        .update($(el).data('value'));
-                }
+                    $(el).data('ProgressBar').update($(el).data('value'));
+                },
             });
 
             return currentCollection;
@@ -121,7 +119,7 @@
          * @param Object config
          *
          */
-        HorizontalProgressBar: function(element, config) {
+        HorizontalProgressBar: function (element, config) {
             this.element = element;
             this.indicator = this.element.find(config.indicatorSelector);
 
@@ -135,12 +133,12 @@
                     this.moveElement.css({
                         left: 'auto',
                         right: 0,
-                        'margin-right': this.moveElement.outerWidth() / -2
+                        'margin-right': this.moveElement.outerWidth() / -2,
                     });
                 } else {
                     this.moveElement.css({
                         left: 0,
-                        'margin-left': this.moveElement.outerWidth() / -2
+                        'margin-left': this.moveElement.outerWidth() / -2,
                     });
                 }
             }
@@ -170,7 +168,7 @@
          * @param Object config
          *
          */
-        VerticalProgressBar: function(element, config) {
+        VerticalProgressBar: function (element, config) {
             this.element = element;
             this.config = config;
             this.indicator = element.find(config['indicatorSelector']);
@@ -191,7 +189,7 @@
          *
          * @return undefined
          */
-        extendHorizontalProgressBar: function() {
+        extendHorizontalProgressBar: function () {
             /**
              * Sets new value of the Progress Bar.
              *
@@ -199,7 +197,7 @@
              *
              * @return undefined
              */
-            this.HorizontalProgressBar.prototype.update = function(value) {
+            this.HorizontalProgressBar.prototype.update = function (value) {
                 var self = this;
 
                 if (this.config.useProgressElement) {
@@ -225,7 +223,7 @@
 
                         if (mIterationValue == 0) mIterationValue = 1;
 
-                        var mCounterId = setInterval(function() {
+                        var mCounterId = setInterval(function () {
                             self.moveSubElement((mCounter += mIterationValue));
                             if (self.moveElement.length)
                                 self.config.onMoveElementChange.call(
@@ -246,7 +244,7 @@
 
                     this.element.data(
                         'intervalId',
-                        setInterval(function() {
+                        setInterval(function () {
                             var currentValue = (counter += iterationValue);
 
                             self.element.attr('value', currentValue);
@@ -279,13 +277,13 @@
                     if (this.indicator.length) {
                         this.indicator.stop().animate(
                             {
-                                width: value + '%'
+                                width: value + '%',
                             },
                             {
                                 duration: self.config.time,
-                                complete: function() {
+                                complete: function () {
                                     self.config.afterUpdate.call(self.element);
-                                }
+                                },
                             }
                         );
                     }
@@ -299,7 +297,7 @@
              *
              * @return
              */
-            this.HorizontalProgressBar.prototype.moveSubElement = function(
+            this.HorizontalProgressBar.prototype.moveSubElement = function (
                 value,
                 duration
             ) {
@@ -320,7 +318,7 @@
          *
          * @return undefined
          */
-        extendVerticalProgressBar: function() {
+        extendVerticalProgressBar: function () {
             /**
              * Sets new value of the Progress Bar.
              *
@@ -328,9 +326,9 @@
              *
              * @return undefined
              */
-            this.VerticalProgressBar.prototype.update = function(value) {
+            this.VerticalProgressBar.prototype.update = function (value) {
                 this.indicator.stop().animate({
-                    height: value + '%'
+                    height: value + '%',
                 });
             };
         },
@@ -341,7 +339,7 @@
          *
          * @return jQuery _pageCollection
          */
-        get: function() {
+        get: function () {
             return this._pageCollection;
         },
 
@@ -352,11 +350,11 @@
          *
          * @return HorizontalProgressBar | VerticalProgressBar
          */
-        getAPI: function(index) {
+        getAPI: function (index) {
             if (this._pageCollection.eq(index).length)
                 return this._pageCollection.eq(index).data('ProgressBar');
 
             return null;
-        }
+        },
     };
 })(jQuery);

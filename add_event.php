@@ -52,16 +52,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="row mb-4">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="event_name" class="form-label">Event name</label>
-                                <input type="text" name="event_name" id="event_name" class="form-control"
-                                    placeholder="Event X">
+                                <label for="event_name" class="form-label">Event
+                                    name</label>
+                                <input type="text" name="event_name" id="event_name" class="form-control" placeholder="Event X">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="event_type" class="form-label">Event type</label>
+                                <label for="event_type" class="form-label">Event
+                                    type</label>
                                 <select name="event_type" id="event_type" class="form-control custom-select">
-                                    <option value="Individual">Individual</option>
+                                    <option value="Individual">Individual
+                                    </option>
                                     <option value="Group">Group</option>
                                 </select>
                             </div>
@@ -73,7 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="form-group">
                                 <label for="event_month" class="form-label">Event date</label>
                                 <select name="event_month" id="event_month" class="form-control custom-select">
-                                    <option value="" disabled>Select month</option>
+                                    <option value="" disabled>Select month
+                                    </option>
                                     <option value="01">January</option>
                                     <option value="02">Febuary</option>
                                     <option value="03">March</option>
@@ -85,7 +88,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <option value="09">September</option>
                                     <option value="10">October</option>
                                     <option value="11">November</option>
-                                    <option value="12" selected>December</option>
+                                    <option value="12" selected>December
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -93,7 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="form-group">
                                 <label for="event_date" class="form-label">&nbsp;</label>
                                 <select name="event_date" id="event_date" class="form-control custom-select">
-                                    <option value="" disabled>Select date</option>
+                                    <option value="" disabled>Select date
+                                    </option>
                                     <option value="01">1</option>
                                     <option value="02">2</option>
                                     <option value="03">3</option>
@@ -132,7 +137,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="form-group">
                                 <label for="event_year" class="form-label">&nbsp;</label>
                                 <select name="event_year" id="event_year" class="form-control custom-select">
-                                    <option value="" disabled>Select year</option>
+                                    <option value="" disabled>Select year
+                                    </option>
                                     <option value="2019" selected>2019</option>
                                     <option value="2020">2020</option>
                                 </select>
@@ -140,9 +146,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label for="event_fee" class="form-label">Event fee</label>
-                                <input type="number" name="event_fee" id="event_fee" class="form-control" min="1"
-                                    placeholder="100">
+                                <label for="event_fee" class="form-label">Event
+                                    fee</label>
+                                <input type="number" name="event_fee" id="event_fee" class="form-control" min="1" placeholder="100">
                             </div>
                         </div>
                     </div>
@@ -152,16 +158,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="form-group">
                                 <label for="category_id" class="form-label">Category</label>
                                 <select name="category_id" id="category_id" class="form-control custom-select">
-                                    <option value="" disabled selected>Select category</option>
+                                    <option value="" disabled selected>Select
+                                        category</option>
                                     <?php
                                     include 'includes/db_connect.php';
 
-                                    $result = $db->query("SELECT * FROM categories ORDER BY category_name");
+                                    $result = $db->query('SELECT * FROM categories ORDER BY category_name');
                                     if ($result) {
                                         while ($row = $result->fetch_assoc()) { ?>
-                                    <option value="<?php echo $row['category_id']; ?>">
-                                        <?php echo $row['category_name']; ?>
-                                    </option>
+                                            <option value="<?php echo $row['category_id']; ?>">
+                                                <?php echo $row['category_name']; ?>
+                                            </option>
                                     <?php }
                                     }
                                     ?>
@@ -172,16 +179,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="form-group">
                                 <label for="organiser_id" class="form-label">Organiser</label>
                                 <select name="organiser_id" id="organiser_id" class="form-control custom-select">
-                                    <option value="" disabled selected>Select organiser</option>
+                                    <option value="" disabled selected>Select
+                                        organiser</option>
                                     <?php
                                     include 'includes/db_connect.php';
 
-                                    $result = $db->query("SELECT * FROM organisers ORDER BY organiser_name");
+                                    $result = $db->query('SELECT * FROM organisers ORDER BY organiser_name');
                                     if ($result) {
                                         while ($row = $result->fetch_assoc()) { ?>
-                                    <option value="<?php echo $row['organiser_id']; ?>">
-                                        <?php echo $row['organiser_name']; ?>
-                                    </option>
+                                            <option value="<?php echo $row['organiser_id']; ?>">
+                                                <?php echo $row['organiser_name']; ?>
+                                            </option>
                                     <?php }
                                     }
                                     ?>
@@ -211,7 +219,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <?php include 'includes/_scripts.php'; ?>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#newEventForm').validate({
                 rules: {
                     event_name: {
@@ -253,7 +261,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
             });
         })
-
     </script>
 </body>
 
