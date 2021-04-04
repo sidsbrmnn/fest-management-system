@@ -65,7 +65,7 @@ if (!isset($_SESSION['user_id'])) {
                                 </div>
 
                                 <div class="card-footer bg-white py-3">
-                                    <a class="btn btn-sm btn-outline-primary transition-3d-hover" href="mail:<?php echo $row['email']; ?>">
+                                    <a class="btn btn-sm btn-outline-primary transition-3d-hover" href="mailto:<?php echo $row['email']; ?>">
                                         <span class="far fa-envelope mr-2"></span>
                                         Send a Message
                                     </a>
