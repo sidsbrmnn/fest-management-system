@@ -80,7 +80,22 @@ $total_amount = 0;
                         <div class="media align-items-center">
                             <span class="text-secondary">Total</span>
                             <div class="media-body text-right">
-                                <span class="font-weight-semi-bold">&#8377;<?php echo $total_amount; ?></span>
+                                <span class="font-weight-semi-bold">&#8377;<?php echo $total_amount;
+                                  //ADDITION OPERATION
+                                include 'includes/db_connect.php';
+
+                                  $result1 = $db->query("SELECT contribution FROM users WHERE email = '$registered_by'");
+                                  if ($result1) {
+                                      if ($row = $result1->fetch_assoc()) {
+                                        $ef=$row['contribution']+$event['event_fee'];
+                                      }}
+
+                              
+                                $result = $db->query("UPDATE users SET contribution='$ef' WHERE email='$registered_by'");
+                                if (!$result) {
+                                   $error_message = 'Failed to register for ' . $event->event_name;
+                                          }
+                                 ?></span>
                             </div>
                         </div>
                     </div>
@@ -94,15 +109,15 @@ $total_amount = 0;
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
                         <div class="form-group">
                             <label for="participant_name" class="form-label">Name</label>
-                            <input type="text" name="participant_name" id="participant_name" class="form-control" placeholder="Siddharth S">
+                            <input type="text" name="participant_name" id="participant_name" class="form-control" placeholder="Your Name">
                         </div>
                         <div class="form-group">
                             <label for="participant_email" class="form-label">Email</label>
-                            <input type="email" name="participant_email" id="participant_email" class="form-control" placeholder="siddharth@gmail.com">
+                            <input type="email" name="participant_email" id="participant_email" class="form-control" placeholder="Mail">
                         </div>
                         <div class="form-group">
                             <label for="participant_phone" class="form-label">Phone</label>
-                            <input type="text" name="participant_phone" id="participant_phone" class="form-control" placeholder="9845739474">
+                            <input type="text" name="participant_phone" id="participant_phone" class="form-control" placeholder="Validate Phone Number">
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
                             <a href="select_events.php"><small class="fas fa-arrow-left mr-2"></small>
